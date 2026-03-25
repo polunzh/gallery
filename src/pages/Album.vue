@@ -1,0 +1,183 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useHead } from '@unhead/vue'
+import albums from 'virtual:albums'
+import type { Album, LayoutEntry } from '@/types/album'
+import { useImageUrl } from '@/composables/useImageUrl'
+import { useScrollReveal } from '@/composables/useScrollReveal'
+import HeroImage from '@/components/HeroImage.vue'
+import ImageFull from '@/components/ImageFull.vue'
+import ImagePair from '@/components/ImagePair.vue'
+import NarrativeText from '@/components/NarrativeText.vue'
+import Lightbox from '@/components/Lightbox.vue'
+
+const route = useRoute()
+const albumId = computed(() => route.params.albumId as string)
+const album = computed(() => albums.find((a: Album) => a.id === albumId.value))
+const getUrl = computed(() => useImageUrl(albumId.value))
+
+const containerRef = ref<HTMLElement | null>(null)
+useScrollReveal(containerRef)
+
+const allImages = computed(() => {
+  if (!album.value) return []
+  const images: { src: string; caption?: string }[] = []
+  for (const entry of album.value.layout) {
+    if (entry.type === 'hero' || entry.type === 'full') {
+      images.push({ src: getUrl.value(entry.src), caption: entry.caption })
+    } else if (entry.type === 'pair') {
+      for (const item of entry.items) {
+        images.push({ src: getUrl.value(item.src), caption: item.caption })
+      }
+    }
+  }
+  return images
+})
+
+const lightboxOpen = ref(false)
+const lightboxIndex = ref(0)
+
+function openLightbox(entry: LayoutEntry, pairIndex?: number) {
+  let idx = 0
+  for (const e of album.value!.layout) {
+    if (e === entry) {
+      if (e.type === 'pair' && pairIndex !== undefined) {
+        idx += pairIndex
+      }
+      break
+    }
+    if (e.type === 'hero' || e.type === 'full') idx++
+    else if (e.type === 'pair') idx += e.items.length
+  }
+  lightboxIndex.value = idx
+  lightboxOpen.value = true
+}
+
+useHead(computed(() => ({
+  title: album.value ? `${album.value.title} — Gallery` : 'Gallery',
+})))
+</script>
+
+<template>
+  <div v-if="album" ref="containerRef" class="album-page">
+    <nav class="album-nav">
+      <RouterLink to="/" class="back">← 返回</RouterLink>
+    </nav>
+
+    <template v-for="(entry, i) in album.layout" :key="i">
+      <!-- Hero: edge-to-edge, outside content container -->
+      <HeroImage
+        v-if="entry.type === 'hero'"
+        :src="getUrl(entry.src)"
+        :caption="entry.caption"
+        :description="entry.description"
+        @click="openLightbox(entry)"
+      />
+
+      <!-- Full-width image: also edge-to-edge -->
+      <div v-else-if="entry.type === 'full'" class="full-bleed reveal">
+        <div class="full-bleed-inner">
+          <ImageFull
+            :src="getUrl(entry.src)"
+            :caption="entry.caption"
+            :description="entry.description"
+            @click="openLightbox(entry)"
+          />
+        </div>
+      </div>
+
+      <!-- Pair and Text: within content container -->
+      <div v-else-if="entry.type === 'pair'" class="content-wrap">
+        <ImagePair
+          :items="entry.items"
+          :get-url="getUrl"
+          @click="(pairIdx: number) => openLightbox(entry, pairIdx)"
+        />
+      </div>
+
+      <NarrativeText
+        v-else-if="entry.type === 'text'"
+        :content="entry.content"
+      />
+    </template>
+
+    <div class="album-end">
+      <div class="end-line"></div>
+    </div>
+
+    <Lightbox
+      v-if="lightboxOpen"
+      :images="allImages"
+      :initial-index="lightboxIndex"
+      @close="lightboxOpen = false"
+    />
+  </div>
+</template>
+
+<style scoped>
+.album-page {
+  padding-bottom: 80px;
+}
+
+.album-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 20px 40px;
+  background: linear-gradient(to bottom, rgba(16, 13, 9, 0.95) 0%, rgba(16, 13, 9, 0.6) 60%, transparent 100%);
+}
+
+.back {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  transition: color var(--duration-fast) ease;
+}
+
+.back:hover {
+  color: var(--text-accent-light);
+}
+
+.content-wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.full-bleed {
+  width: 100%;
+}
+
+.full-bleed-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.album-end {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-4xl);
+}
+
+.end-line {
+  width: 60px;
+  height: 1px;
+  background: var(--divider);
+}
+
+@media (max-width: 767px) {
+  .album-nav {
+    padding: 16px 20px;
+  }
+
+  .content-wrap,
+  .full-bleed-inner {
+    padding: 0 20px;
+  }
+}
+</style>

@@ -1,0 +1,175 @@
+id: tianxiwei
+title: 田曦薇
+cover: 01-first-meeting.jpg
+date: "2025-03"
+layout:
+  # ═══ 第一幕：初识 ═══
+  - type: hero
+    src: 01-first-meeting.jpg
+    caption: 初识
+    description: 深蓝布帘前，姑娘抱臂而立，眉眼间带着几分警惕与好奇
+    original: 田曦薇-初识.png
+
+  - type: text
+    content: 喜怒哀乐，皆是真情
+
+  - type: pair
+    items:
+      - src: 08-happy.jpg
+        caption: 高兴
+        description: 暖色的屋内，微微歪头，眼角带笑
+        original: 高兴.png
+      - src: 09-cute.jpg
+        caption: 可爱
+        description: 嘴角含笑坐在床边，阳光映得脸颊温暖
+        original: 可爱.png
+
+  - type: pair
+    items:
+      - src: 10-unhappy.jpg
+        caption: 不高兴
+        description: 身后有人笑着走来，她却满脸茫然地走在街上
+        original: 不高兴.png
+      - src: 11-embarrassed.jpg
+        caption: 不好意思
+        description: 鼓着腮帮子撇嘴，一脸委屈又无奈
+        original: 不好意思-尴尬.png
+
+  - type: pair
+    items:
+      - src: 25-serene.jpg
+        caption: 安宁
+        description: 阳光穿过木窗格，对面有人说话，她安静地听着
+        original: 安宁.png
+      - src: 26-gaze-up.jpg
+        caption: 仰望
+        description: 昏暗中抬眼向上看，灯光映出一双清亮的眼睛
+        original: 美-仰望.png
+
+  - type: full
+    src: 27-closeup.jpg
+    caption: 特写
+    description: 侧脸极近的特写，睫毛与唇线清晰可见，像一帧静止的电影
+    original: 特写.png
+
+  # ═══ 第二幕：雪夜 ═══
+  - type: text
+    content: 雪落无声，江湖路远
+
+  - type: full
+    src: 06-snow-falling.jpg
+    caption: 落雪
+    description: 灯笼微光里伸手接雪，夜色与飞雪一样安静
+    original: 美-落雪.png
+
+  - type: pair
+    items:
+      - src: 02-snow-chat.jpg
+        caption: 雪中聊天
+        description: 漫天飞雪中，两人在池塘边相对而立，絮絮低语
+        original: 雪中聊天.png
+      - src: 03-snow-back.jpg
+        caption: 雪中背影
+        description: 背着行囊独行雪路，晨光穿过枯枝洒下来
+        original: 雪中背影.png
+
+  - type: full
+    src: 04-rescue.jpg
+    caption: 救人
+    description: 日落时分的雪原，树下相依，四周一片寂静
+    original: 救人.png
+
+  - type: full
+    src: 28-side-profile.jpg
+    caption: 侧影
+    description: 暮色透过窗棂，侧脸映在暖光中，安静如画
+    original: 侧面.png
+
+  # ═══ 第三幕：江湖 ═══
+  - type: text
+    content: 江湖风雨，不改赤心
+
+  - type: pair
+    items:
+      - src: 15-curious.jpg
+        caption: 好奇
+        description: 穿着羊皮袄站在木屋门口，仰头看着头顶的灯笼
+        original: 好奇.png
+      - src: 16-curious-cute.jpg
+        caption: 好奇
+        description: 飘雪的院落中，瞪大眼睛望着前方，一脸懵然
+        original: 好奇-可爱.png
+
+  - type: full
+    src: 19-pawnshop.jpg
+    caption: 当铺
+    description: 趴在当铺柜台窗口往里探头，大眼睛写满了好奇
+    original: 当铺.png
+
+  - type: pair
+    items:
+      - src: 17-curious-surprised.jpg
+        caption: 吃惊
+        description: 身旁大汉背着竹筐，她侧目张嘴，满脸意外
+        original: 好奇-吃惊.png
+      - src: 18-anxious.jpg
+        caption: 焦急
+        description: 裹着头巾探身向前，眼神急切，像在问什么要紧事
+        original: 焦急.png
+
+  - type: pair
+    items:
+      - src: 20-worry.jpg
+        caption: 担心
+        description: 飘雪的街头侧影，低眉垂目，心事重重
+        original: 担心.png
+      - src: 21-worry-scared.jpg
+        caption: 害怕
+        description: 大雪中紧抿双唇，眼里满是不安与惶恐
+        original: 担心-害怕.png
+
+  - type: pair
+    items:
+      - src: 22-worry-rush.jpg
+        caption: 焦急
+        description: 雪天集市上，几个男人持刀对峙，她站在一旁惊慌失措
+        original: 担心-焦急.png
+      - src: 23-cute-scared.jpg
+        caption: 后怕
+        description: 靠着木柱缩起肩膀，劫后余生的紧张还没褪去
+        original: 可爱-后怕.png
+
+  - type: full
+    src: 24-light-worry.jpg
+    caption: 笑语盈盈暗香去
+    description: 烟雾缭绕中抬头张望，光从侧面洒进来，画面右侧题着金字
+    original: 光-担心.png
+
+  # ═══ 第四幕：转折 ═══
+  - type: pair
+    items:
+      - src: 12-happy-relief.jpg
+        caption: 转危为安
+        description: 大雪中开怀大笑，身后堆着雪人，危机过后松了口气
+        original: 高兴-转危为安.png
+      - src: 13-peeking.jpg
+        caption: 偷看
+        description: 蓝衣飘雪中回头一笑，目光明亮
+        original: 偷看.png
+
+  - type: full
+    src: 14-love-at-first.jpg
+    caption: 一见钟情
+    description: 飞雪与光影交错中，睁大双眼怔怔望着前方，像被什么击中
+    original: 一见钟情.png
+
+  - type: pair
+    items:
+      - src: 05-snow-cabin.jpg
+        caption: 落雪木屋
+        description: 大雪纷飞中独立木屋廊下，裹紧衣裳等着什么人
+        original: 落雪-木屋.png
+      - src: 07-snow-side.jpg
+        caption: 落雪侧影
+        description: 雪中的街头，与人并肩而行，细雪落满了发间
+        original: 落雪-侧影.png
