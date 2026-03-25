@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useSwipe } from '@vueuse/core'
-import { ref } from 'vue'
 import { useLightbox, type LightboxImage } from '@/composables/useLightbox'
 
 const props = defineProps<{
@@ -32,13 +31,22 @@ function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') emit('close')
 }
 
-// Register Escape separately since useLightbox handles arrows
-import { onMounted, onUnmounted } from 'vue'
-onMounted(() => document.addEventListener('keydown', onKeydown))
-onUnmounted(() => document.removeEventListener('keydown', onKeydown))
+function preventScroll(e: TouchEvent) {
+  e.preventDefault()
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', onKeydown)
+  document.addEventListener('touchmove', preventScroll, { passive: false })
+})
+onUnmounted(() => {
+  document.removeEventListener('keydown', onKeydown)
+  document.removeEventListener('touchmove', preventScroll)
+})
 
 function onBackdropClick(e: MouseEvent) {
-  if ((e.target as HTMLElement).classList.contains('lightbox')) {
+  const el = e.target as HTMLElement
+  if (el.classList.contains('lightbox') || el.classList.contains('lb-image-area')) {
     emit('close')
   }
 }
@@ -47,14 +55,26 @@ function onBackdropClick(e: MouseEvent) {
 <template>
   <Teleport to="body">
     <div ref="swipeTarget" class="lightbox" @click="onBackdropClick">
+      <!-- Close button -->
       <button class="lb-close" @click="emit('close')" aria-label="关闭">✕</button>
+
+      <!-- Desktop nav -->
       <button class="lb-nav lb-prev" @click="prev" aria-label="上一张">‹</button>
       <button class="lb-nav lb-next" @click="next" aria-label="下一张">›</button>
 
-      <img :src="current.src" :alt="current.caption || ''" :key="currentIndex">
-
-      <div v-if="current.caption" class="lb-caption">{{ current.caption }}</div>
-      <div class="lb-counter">{{ currentIndex + 1 }} / {{ images.length }}</div>
+      <!-- Centered content block -->
+      <div class="lb-image-area">
+        <div class="lb-card">
+          <img :src="current.src" :alt="current.caption || ''" :key="currentIndex">
+          <div class="lb-info">
+            <div class="lb-text">
+              <span v-if="current.caption" class="lb-caption">{{ current.caption }}</span>
+              <span v-if="current.description" class="lb-description">{{ current.description }}</span>
+            </div>
+            <span class="lb-counter">{{ currentIndex + 1 }} / {{ images.length }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </Teleport>
 </template>
@@ -64,11 +84,9 @@ function onBackdropClick(e: MouseEvent) {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(0, 0, 0, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: zoom-out;
+  background: #000;
+  touch-action: none;
+  overscroll-behavior: contain;
   animation: fade-in var(--duration-fast) ease;
 }
 
@@ -77,22 +95,13 @@ function onBackdropClick(e: MouseEvent) {
   to { opacity: 1; }
 }
 
-.lightbox img {
-  max-width: 92vw;
-  max-height: 88vh;
-  object-fit: contain;
-  border-radius: var(--radius-sm);
-  cursor: default;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
 .lb-close {
   position: absolute;
-  top: 20px;
-  right: 24px;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
   color: var(--text-secondary);
-  font-size: 22px;
+  font-size: 20px;
   cursor: pointer;
   background: none;
   border: none;
@@ -108,10 +117,80 @@ function onBackdropClick(e: MouseEvent) {
   color: var(--text-primary);
 }
 
+/* ── Image area: fills the screen, centers content ── */
+.lb-image-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 60px;
+  cursor: zoom-out;
+}
+
+/* ── Card: image + info grouped together ── */
+.lb-card {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+}
+
+.lb-card img {
+  max-width: 100%;
+  max-height: calc(100vh - 140px);
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.lb-info {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 14px;
+  gap: 16px;
+}
+
+.lb-text {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.lb-caption {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--text-accent);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.lb-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lb-counter {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* ── Desktop nav ── */
 .lb-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 10;
   color: var(--text-muted);
   font-size: 36px;
   cursor: pointer;
@@ -125,40 +204,36 @@ function onBackdropClick(e: MouseEvent) {
   color: var(--text-secondary);
 }
 
-.lb-prev { left: 12px; }
-.lb-next { right: 12px; }
+.lb-prev { left: 8px; }
+.lb-next { right: 8px; }
 
-.lb-caption {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-size: 14px;
-  color: var(--text-secondary);
-  letter-spacing: 0.08em;
-}
-
-.lb-counter {
-  position: absolute;
-  bottom: 36px;
-  right: 32px;
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-}
-
+/* ── Mobile ── */
 @media (max-width: 767px) {
   .lb-nav { display: none; }
 
-  .lb-caption {
-    bottom: 24px;
-    font-size: 13px;
+  .lb-image-area {
+    padding: 56px 8px 8px;
   }
 
-  .lb-counter {
-    bottom: 24px;
-    right: 20px;
+  .lb-card img {
+    max-height: calc(100vh - 160px);
+  }
+
+  .lb-info {
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 0 4px;
+  }
+
+  .lb-text {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .lb-description {
+    white-space: normal;
+    font-size: 12px;
   }
 }
 </style>

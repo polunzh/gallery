@@ -13,15 +13,15 @@
   --bg: #100d09;
   --bg-alt: #140f0b;
 
-  --text-primary: rgba(232, 223, 210, 0.85);
-  --text-secondary: rgba(232, 223, 210, 0.55);
-  --text-muted: rgba(232, 223, 210, 0.3);
+  --text-primary: rgba(232, 223, 210, 0.9);
+  --text-secondary: rgba(232, 223, 210, 0.65);
+  --text-muted: rgba(232, 223, 210, 0.4);
   --text-warm: #e8dfd2;
-  --text-accent: #b4966e;
-  --text-accent-light: #d4b896;
+  --text-accent: #c8a87a;
+  --text-accent-light: #dcc49e;
 
-  --divider: rgba(180, 150, 110, 0.12);
-  --hover: rgba(180, 150, 110, 0.06);
+  --divider: rgba(180, 150, 110, 0.18);
+  --hover: rgba(180, 150, 110, 0.08);
 
   --space-xs: 4px;
   --space-sm: 8px;

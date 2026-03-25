@@ -4,17 +4,18 @@ import { useHead } from '@unhead/vue'
 import albums from 'virtual:albums'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import AlbumCard from '@/components/AlbumCard.vue'
+import SiteFooter from '@/components/SiteFooter.vue'
 
 const containerRef = ref<HTMLElement | null>(null)
 useScrollReveal(containerRef)
 
-useHead({ title: 'Gallery — polunzh' })
+useHead({ title: '拾光' })
 </script>
 
 <template>
   <div ref="containerRef" class="home">
     <header class="home-header reveal">
-      <h1 class="site-title">Gallery</h1>
+      <h1 class="site-title">拾光</h1>
     </header>
 
     <main class="album-grid">
@@ -25,6 +26,8 @@ useHead({ title: 'Gallery — polunzh' })
         class="reveal"
       />
     </main>
+
+    <SiteFooter />
   </div>
 </template>
 

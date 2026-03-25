@@ -71,7 +71,7 @@ defineEmits<{
 .hero-description {
   margin-top: 8px;
   font-size: 14px;
-  color: rgba(232, 223, 210, 0.6);
+  color: rgba(232, 223, 210, 0.7);
   letter-spacing: 0.04em;
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }

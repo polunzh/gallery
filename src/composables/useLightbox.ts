@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 export interface LightboxImage {
   src: string
   caption?: string
+  description?: string
 }
 
 export function useLightbox(images: () => LightboxImage[], initialIndex: number) {

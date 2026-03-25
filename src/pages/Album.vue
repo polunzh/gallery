@@ -11,6 +11,7 @@ import ImageFull from '@/components/ImageFull.vue'
 import ImagePair from '@/components/ImagePair.vue'
 import NarrativeText from '@/components/NarrativeText.vue'
 import Lightbox from '@/components/Lightbox.vue'
+import SiteFooter from '@/components/SiteFooter.vue'
 
 const route = useRoute()
 const albumId = computed(() => route.params.albumId as string)
@@ -22,13 +23,13 @@ useScrollReveal(containerRef)
 
 const allImages = computed(() => {
   if (!album.value) return []
-  const images: { src: string; caption?: string }[] = []
+  const images: { src: string; caption?: string; description?: string }[] = []
   for (const entry of album.value.layout) {
     if (entry.type === 'hero' || entry.type === 'full') {
-      images.push({ src: getUrl.value(entry.src), caption: entry.caption })
+      images.push({ src: getUrl.value(entry.src), caption: entry.caption, description: entry.description })
     } else if (entry.type === 'pair') {
       for (const item of entry.items) {
-        images.push({ src: getUrl.value(item.src), caption: item.caption })
+        images.push({ src: getUrl.value(item.src), caption: item.caption, description: item.description })
       }
     }
   }
@@ -55,7 +56,7 @@ function openLightbox(entry: LayoutEntry, pairIndex?: number) {
 }
 
 useHead(computed(() => ({
-  title: album.value ? `${album.value.title} — Gallery` : 'Gallery',
+  title: album.value ? `${album.value.title} — 拾光` : '拾光',
 })))
 </script>
 
@@ -105,6 +106,8 @@ useHead(computed(() => ({
     <div class="album-end">
       <div class="end-line"></div>
     </div>
+
+    <SiteFooter />
 
     <Lightbox
       v-if="lightboxOpen"

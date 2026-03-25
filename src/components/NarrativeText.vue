@@ -44,11 +44,11 @@ defineProps<{
   flex: 1;
   max-width: 80px;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--text-accent, rgba(180,150,110,0.3)));
+  background: linear-gradient(to right, transparent, rgba(200, 168, 122, 0.5));
 }
 
 .line-right {
-  background: linear-gradient(to left, transparent, var(--text-accent, rgba(180,150,110,0.3)));
+  background: linear-gradient(to left, transparent, rgba(200, 168, 122, 0.5));
 }
 
 @media (max-width: 767px) {
