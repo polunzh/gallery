@@ -7,7 +7,7 @@ layout:
   - type: hero
     src: 01-first-meeting.jpg
     caption: 初识
-    description: 深蓝布帘前，姑娘抱臂而立，眉眼间带着几分警惕与好奇
+    description: 蓝帘低垂，她站在那里，眼神还没有完全松下来
     original: 田曦薇-初识.png
 
   - type: text
@@ -17,39 +17,39 @@ layout:
     items:
       - src: 08-happy.jpg
         caption: 高兴
-        description: 暖色的屋内，微微歪头，眼角带笑
+        description: 屋里灯火温着，她一偏头，眉眼就先亮了
         original: 高兴.png
       - src: 09-cute.jpg
         caption: 可爱
-        description: 嘴角含笑坐在床边，阳光映得脸颊温暖
+        description: 窗边的光落下来，她安静坐着，笑意却藏不住
         original: 可爱.png
 
   - type: pair
     items:
       - src: 10-unhappy.jpg
         caption: 不高兴
-        description: 身后有人笑着走来，她却满脸茫然地走在街上
+        description: 街上人声正热闹，她却像没听见，只顾往前走
         original: 不高兴.png
       - src: 11-embarrassed.jpg
         caption: 不好意思
-        description: 鼓着腮帮子撇嘴，一脸委屈又无奈
+        description: 话没接上，神情先别过去了，像怨一句，又像忍着笑
         original: 不好意思-尴尬.png
 
   - type: pair
     items:
       - src: 25-serene.jpg
         caption: 安宁
-        description: 阳光穿过木窗格，对面有人说话，她安静地听着
+        description: 窗光落在桌前，她只是听着，神情也慢慢缓下来
         original: 安宁.png
       - src: 26-gaze-up.jpg
         caption: 仰望
-        description: 昏暗中抬眼向上看，灯光映出一双清亮的眼睛
+        description: 灯挂得高，她一抬眼，昏暗里便只剩这双眼睛最亮
         original: 美-仰望.png
 
   - type: full
     src: 27-closeup.jpg
     caption: 特写
-    description: 侧脸极近的特写，睫毛与唇线清晰可见，像一帧静止的电影
+    description: 镜头贴得很近，连呼吸都像轻了下来
     original: 特写.png
 
   # ═══ 第二幕：雪夜 ═══
@@ -59,30 +59,30 @@ layout:
   - type: full
     src: 06-snow-falling.jpg
     caption: 落雪
-    description: 灯笼微光里伸手接雪，夜色与飞雪一样安静
+    description: 灯影微微晃着，她伸手去接，雪落在掌心，也落在夜里
     original: 美-落雪.png
 
   - type: pair
     items:
       - src: 02-snow-chat.jpg
         caption: 雪中聊天
-        description: 漫天飞雪中，两人在池塘边相对而立，絮絮低语
+        description: 雪把声音压低了，她站在树下与人相对，话也跟着轻了
         original: 雪中聊天.png
       - src: 03-snow-back.jpg
         caption: 雪中背影
-        description: 背着行囊独行雪路，晨光穿过枯枝洒下来
+        description: 背影没进雪色里，天光很淡，路却还长
         original: 雪中背影.png
 
   - type: full
     src: 04-rescue.jpg
     caption: 救人
-    description: 日落时分的雪原，树下相依，四周一片寂静
+    description: 旷野一片寂静，树下只剩彼此，风雪再大也像隔远了
     original: 救人.png
 
   - type: full
     src: 28-side-profile.jpg
     caption: 侧影
-    description: 暮色透过窗棂，侧脸映在暖光中，安静如画
+    description: 暖光停在侧脸上，她没有回头，心思也像一并静了
     original: 侧面.png
 
   # ═══ 第三幕：江湖 ═══
@@ -93,56 +93,56 @@ layout:
     items:
       - src: 15-curious.jpg
         caption: 好奇
-        description: 穿着羊皮袄站在木屋门口，仰头看着头顶的灯笼
+        description: 她站在门边仰头看着，像是第一次认真打量这院子的光
         original: 好奇.png
       - src: 16-curious-cute.jpg
         caption: 好奇
-        description: 飘雪的院落中，瞪大眼睛望着前方，一脸懵然
+        description: 雪还在院里落着，她睁大眼睛，看什么都像新鲜
         original: 好奇-可爱.png
 
   - type: full
     src: 19-pawnshop.jpg
     caption: 当铺
-    description: 趴在当铺柜台窗口往里探头，大眼睛写满了好奇
+    description: 窗口压得低低的，她还是探身过去，非要看个分明
     original: 当铺.png
 
   - type: pair
     items:
       - src: 17-curious-surprised.jpg
         caption: 吃惊
-        description: 身旁大汉背着竹筐，她侧目张嘴，满脸意外
+        description: 眼前忽然多出个人来，她愣了一瞬，目光也跟着乱了
         original: 好奇-吃惊.png
       - src: 18-anxious.jpg
         caption: 焦急
-        description: 裹着头巾探身向前，眼神急切，像在问什么要紧事
+        description: 她探身过去，像是一定要从人群里问出一个答案
         original: 焦急.png
 
   - type: pair
     items:
       - src: 20-worry.jpg
         caption: 担心
-        description: 飘雪的街头侧影，低眉垂目，心事重重
+        description: 雪落下来，她低着眼，像有许多话都压在心里
         original: 担心.png
       - src: 21-worry-scared.jpg
         caption: 害怕
-        description: 大雪中紧抿双唇，眼里满是不安与惶恐
+        description: 她站在雪里，唇角收得很紧，像连呼吸都不敢放重
         original: 担心-害怕.png
 
   - type: pair
     items:
       - src: 22-worry-rush.jpg
         caption: 焦急
-        description: 雪天集市上，几个男人持刀对峙，她站在一旁惊慌失措
+        description: 刀光一闪，她被留在原地，连目光都来不及安稳
         original: 担心-焦急.png
       - src: 23-cute-scared.jpg
         caption: 后怕
-        description: 靠着木柱缩起肩膀，劫后余生的紧张还没褪去
+        description: 她缩在木柱旁，神情还没有缓过来，惊意还停在肩头
         original: 可爱-后怕.png
 
   - type: full
     src: 24-light-worry.jpg
     caption: 笑语盈盈暗香去
-    description: 烟雾缭绕中抬头张望，光从侧面洒进来
+    description: 光从一侧落下来，她抬眼望着，像在等什么，也像只是出神
     original: 光-担心.png
 
   # ═══ 第四幕：转折 ═══
@@ -150,26 +150,26 @@ layout:
     items:
       - src: 12-happy-relief.jpg
         caption: 转危为安
-        description: 大雪中开怀大笑，身后堆着雪人，危机过后松了口气
+        description: 雪人还堆在身后，她笑得毫无顾忌，像寒意终于退远了
         original: 高兴-转危为安.png
       - src: 13-peeking.jpg
         caption: 偷看
-        description: 蓝衣飘雪中回头一笑，目光明亮
+        description: 她回头看过来，目光轻轻一碰，笑意就先到了
         original: 偷看.png
 
   - type: full
     src: 14-love-at-first.jpg
     caption: 一见钟情
-    description: 飞雪与光影交错中，睁大双眼怔怔望着前方，像被什么击中
+    description: 雪光一晃，她站在原地，像忽然忘了该往哪边走
     original: 一见钟情.png
 
   - type: pair
     items:
       - src: 05-snow-cabin.jpg
         caption: 落雪木屋
-        description: 大雪纷飞中独立木屋廊下，裹紧衣裳等着什么人
+        description: 木屋外雪落得很深，她仍站在廊下，像在等一个迟迟未至的人
         original: 落雪-木屋.png
       - src: 07-snow-side.jpg
         caption: 落雪侧影
-        description: 雪中的街头，与人并肩而行，细雪落满了发间
+        description: 雪落在两人之间，步子没有停，话也像还没说尽
         original: 落雪-侧影.png
