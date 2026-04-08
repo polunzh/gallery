@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import albums from 'virtual:albums'
@@ -19,7 +19,22 @@ const album = computed(() => albums.find((a: Album) => a.id === albumId.value))
 const getUrl = computed(() => useImageUrl(albumId.value))
 
 const containerRef = ref<HTMLElement | null>(null)
+const showNavTitle = ref(false)
 useScrollReveal(containerRef)
+
+// Show album title in nav after scrolling past hero
+function onScroll() {
+  if (!containerRef.value) return
+  const heroHeight = window.innerHeight * 0.75
+  showNavTitle.value = window.scrollY > heroHeight * 0.5
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+})
 
 const allImages = computed(() => {
   if (!album.value) return []
@@ -63,7 +78,12 @@ useHead(computed(() => ({
 <template>
   <div v-if="album" ref="containerRef" class="album-page">
     <nav class="album-nav">
-      <RouterLink to="/" class="back">← 返回</RouterLink>
+      <RouterLink to="/" class="back">
+        <span class="back-icon">←</span>
+        <span class="back-text">返回</span>
+      </RouterLink>
+      <h1 v-if="album" class="album-nav-title" :class="{ visible: showNavTitle }">{{ album.title }}</h1>
+      <span class="nav-spacer"></span>
     </nav>
 
     <template v-for="(entry, i) in album.layout" :key="i">
@@ -129,20 +149,58 @@ useHead(computed(() => ({
   left: 0;
   right: 0;
   z-index: 50;
-  padding: 20px 40px;
+  padding: 16px 40px;
   background: linear-gradient(to bottom, rgba(16, 13, 9, 0.95) 0%, rgba(16, 13, 9, 0.6) 60%, transparent 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-display);
   font-size: 14px;
   color: var(--text-secondary);
   letter-spacing: 0.05em;
-  transition: color var(--duration-fast) ease;
+  transition: all var(--duration-fast) ease;
+  padding: 8px 12px;
+  margin: -8px -12px;
+  border-radius: var(--radius-sm);
 }
 
 .back:hover {
   color: var(--text-accent-light);
+  transform: translateX(-4px);
+}
+
+.back-icon {
+  font-size: 16px;
+}
+
+.album-nav-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--text-primary);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all var(--duration-fast) ease;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.album-nav-title.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-spacer {
+  width: 60px;
 }
 
 .content-wrap {
@@ -175,7 +233,28 @@ useHead(computed(() => ({
 
 @media (max-width: 767px) {
   .album-nav {
-    padding: 16px 20px;
+    padding: 12px 16px;
+  }
+
+  .back {
+    padding: 12px 16px;
+    margin: -12px -16px;
+    min-width: 80px;
+  }
+
+  .back-icon {
+    font-size: 18px;
+  }
+
+  .album-nav-title {
+    font-size: 14px;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-spacer {
+    width: 50px;
   }
 
   .content-wrap,

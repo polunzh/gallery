@@ -44,6 +44,18 @@ defineEmits<{
   transform: scale(1.015);
 }
 
+/* Touch feedback */
+.hero:active img {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+@media (hover: none) {
+  .hero:hover img {
+    transform: none;
+  }
+}
+
 .hero-overlay {
   position: absolute;
   inset: 0;

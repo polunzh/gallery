@@ -20,8 +20,68 @@ const { currentIndex, next, prev } = useLightbox(
 const current = computed(() => props.images[currentIndex.value])
 
 const swipeTarget = ref<HTMLElement | null>(null)
+const imageContainer = ref<HTMLElement | null>(null)
+const isZoomed = ref(false)
+const zoomScale = ref(1)
+const panX = ref(0)
+const panY = ref(0)
+const dragOffsetY = ref(0)
+const isDragging = ref(false)
+
+// Double tap to zoom
+let lastTapTime = 0
+function onImageTap(e: MouseEvent | TouchEvent) {
+  const currentTime = Date.now()
+  const tapInterval = currentTime - lastTapTime
+  if (tapInterval < 300 && tapInterval > 0) {
+    // Double tap
+    if (isZoomed.value) {
+      resetZoom()
+    } else {
+      zoomScale.value = 2
+      isZoomed.value = true
+      // Center zoom on tap point
+      const rect = (e.target as HTMLElement).getBoundingClientRect()
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+      panX.value = (rect.left + rect.width / 2 - clientX) * 0.5
+      panY.value = (rect.top + rect.height / 2 - clientY) * 0.5
+    }
+  }
+  lastTapTime = currentTime
+}
+
+function resetZoom() {
+  isZoomed.value = false
+  zoomScale.value = 1
+  panX.value = 0
+  panY.value = 0
+}
+
+// Swipe to navigate (only when not zoomed)
 useSwipe(swipeTarget, {
-  onSwipeEnd(_e, direction) {
+  onSwipe(e: TouchEvent, direction: string, diffX: number, diffY: number) {
+    if (isZoomed.value) return
+
+    // Pull down to close
+    if (diffY > 0 && Math.abs(diffY) > Math.abs(diffX) && diffY > 80) {
+      dragOffsetY.value = diffY
+    }
+  },
+  onSwipeEnd(e: TouchEvent, direction: string, diffX: number, diffY: number) {
+    if (isZoomed.value) {
+      resetZoom()
+      return
+    }
+
+    // Pull down to close threshold
+    if (diffY > 0 && Math.abs(diffY) > Math.abs(diffX) && diffY > 100) {
+      emit('close')
+      return
+    }
+
+    dragOffsetY.value = 0
+
     if (direction === 'left') next()
     else if (direction === 'right') prev()
   },
@@ -32,7 +92,9 @@ function onKeydown(e: KeyboardEvent) {
 }
 
 function preventScroll(e: TouchEvent) {
-  e.preventDefault()
+  if (!isZoomed.value) {
+    e.preventDefault()
+  }
 }
 
 onMounted(() => {
@@ -45,6 +107,10 @@ onUnmounted(() => {
 })
 
 function onBackdropClick(e: MouseEvent) {
+  if (isZoomed.value) {
+    resetZoom()
+    return
+  }
   const el = e.target as HTMLElement
   if (el.classList.contains('lightbox') || el.classList.contains('lb-image-area')) {
     emit('close')
@@ -63,15 +129,33 @@ function onBackdropClick(e: MouseEvent) {
       <button class="lb-nav lb-next" @click="next" aria-label="下一张">›</button>
 
       <!-- Centered content block -->
-      <div class="lb-image-area">
-        <div class="lb-card">
-          <img :src="current.src" :alt="current.caption || ''" :key="currentIndex">
+      <div class="lb-image-area" :style="{ transform: `translateY(${dragOffsetY}px)` }">
+        <div class="lb-card" :class="{ 'is-zoomed': isZoomed }">
+          <div
+            ref="imageContainer"
+            class="image-zoom-container"
+            @click="onImageTap"
+          >
+            <img
+              :src="current.src"
+              :alt="current.caption || ''"
+              :key="currentIndex"
+              :style="{
+                transform: `scale(${zoomScale}) translate(${panX}px, ${panY}px)`,
+                cursor: isZoomed ? 'grab' : 'zoom-in'
+              }"
+            >
+          </div>
           <div class="lb-info">
             <div class="lb-text">
               <span v-if="current.caption" class="lb-caption">{{ current.caption }}</span>
               <span v-if="current.description" class="lb-description">{{ current.description }}</span>
             </div>
             <span class="lb-counter">{{ currentIndex + 1 }} / {{ images.length }}</span>
+          </div>
+          <!-- Touch hint -->
+          <div v-if="currentIndex === 0" class="touch-hint">
+            <span>左右滑动切换 · 双击放大 · 下拉关闭</span>
           </div>
         </div>
       </div>
@@ -137,13 +221,38 @@ function onBackdropClick(e: MouseEvent) {
   cursor: default;
 }
 
+.image-zoom-container {
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
 .lb-card img {
   max-width: 100%;
-  max-height: calc(100vh - 140px);
+  max-height: calc(100vh - 180px);
   object-fit: contain;
   border-radius: var(--radius-sm);
   user-select: none;
   -webkit-user-drag: none;
+  transition: transform 0.3s ease;
+  touch-action: none;
+}
+
+.lb-card.is-zoomed img {
+  cursor: grab;
+}
+
+.touch-hint {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+@media (max-width: 767px) {
+  .touch-hint {
+    font-size: 11px;
+  }
 }
 
 .lb-info {
@@ -170,7 +279,7 @@ function onBackdropClick(e: MouseEvent) {
 }
 
 .lb-description {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-secondary);
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -179,7 +288,7 @@ function onBackdropClick(e: MouseEvent) {
 }
 
 .lb-counter {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   letter-spacing: 0.05em;
   flex-shrink: 0;
@@ -212,11 +321,11 @@ function onBackdropClick(e: MouseEvent) {
   .lb-nav { display: none; }
 
   .lb-image-area {
-    padding: 56px 8px 8px;
+    padding: 60px 8px 8px;
   }
 
   .lb-card img {
-    max-height: calc(100vh - 160px);
+    max-height: calc(100vh - 180px);
   }
 
   .lb-info {
@@ -231,9 +340,21 @@ function onBackdropClick(e: MouseEvent) {
     gap: 4px;
   }
 
+  .lb-caption {
+    font-size: 16px;
+  }
+
   .lb-description {
     white-space: normal;
+    font-size: 13px;
+  }
+
+  .lb-counter {
     font-size: 12px;
+  }
+
+  .touch-hint {
+    font-size: 11px;
   }
 }
 </style>

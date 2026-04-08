@@ -42,6 +42,18 @@ defineEmits<{
   transform: scale(1.015);
 }
 
+/* Touch feedback */
+.image-wrapper:active img {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+@media (hover: none) {
+  .image-wrapper:hover img {
+    transform: none;
+  }
+}
+
 .info {
   margin-top: 16px;
   text-align: center;
@@ -56,8 +68,17 @@ defineEmits<{
 
 .description {
   margin-top: 6px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-secondary);
   letter-spacing: 0.02em;
+}
+
+@media (max-width: 767px) {
+  .caption {
+    font-size: 15px;
+  }
+  .description {
+    font-size: 13px;
+  }
 }
 </style>

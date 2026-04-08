@@ -53,6 +53,18 @@ defineEmits<{
   transform: scale(1.015);
 }
 
+/* Touch feedback */
+.image-wrapper:active img {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+@media (hover: none) {
+  .image-wrapper:hover img {
+    transform: none;
+  }
+}
+
 .info {
   margin-top: 12px;
   text-align: center;
@@ -67,7 +79,7 @@ defineEmits<{
 
 .description {
   margin-top: 4px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-secondary);
   letter-spacing: 0.02em;
 }
@@ -76,6 +88,14 @@ defineEmits<{
   .image-pair {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .caption {
+    font-size: 15px;
+  }
+
+  .description {
+    font-size: 13px;
   }
 }
 </style>

@@ -60,6 +60,21 @@ const imageCount = computed(() => {
   transform: scale(1.03);
 }
 
+/* Touch feedback */
+.album-card:active .card-cover img {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+@media (hover: none) {
+  .album-card:hover .card-cover img {
+    transform: none;
+  }
+  .album-card:active .card-cover img {
+    transform: scale(0.98);
+  }
+}
+
 .card-badge {
   position: absolute;
   bottom: 10px;
@@ -90,5 +105,18 @@ const imageCount = computed(() => {
 .card-meta {
   font-size: 13px;
   color: var(--text-muted);
+}
+
+@media (max-width: 767px) {
+  .card-title {
+    font-size: 18px;
+  }
+  .card-meta {
+    font-size: 13px;
+  }
+  .card-badge {
+    font-size: 12px;
+    padding: 4px 12px;
+  }
 }
 </style>
