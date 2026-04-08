@@ -33,12 +33,12 @@ layout:
   - type: pair
     items:
       - src: 04-cantonese.jpg
-        caption: 学粤语
-        description: 他刚开口，她就笑了，这口音一听就不是本地人
+        caption: 生涩
+        description: 他才开口，乡音便先露了出来
         original: 第一次见面-不熟练的粤语.png
       - src: 05-first-chat.jpg
-        caption: 听得明白
-        description: 她弯下腰一字一句教，粤语难学，有人愿意学就不算难
+        caption: 俯身
+        description: 她弯下身，一字一句地教，他也一句一句地学
         original: 第一次私下交谈.png
 
   - type: pair
@@ -54,8 +54,8 @@ layout:
 
   - type: full
     src: 08-english-class.jpg
-    caption: 英语课
-    description: 两个人挤在教室里，梦想着未来，笑声很大
+    caption: 同桌
+    description: 窄小的教室里，他们一边学英文，一边把未来说得很近
     original: 上英语课.png
 
   - type: pair
@@ -86,8 +86,8 @@ layout:
         description: "你笑得甜蜜蜜，好像花儿开在春风里"
         original: 第一次骑自行车-唱歌.png
       - src: 13-beautiful.jpg
-        caption: 美好
-        description: 那一刻以为，这样的日子会一直过下去
+        caption: 一刻
+        description: 那时他们都以为，这样的日子还会继续下去
         original: 美好.png
 
   - type: full
@@ -99,18 +99,18 @@ layout:
   - type: pair
     items:
       - src: 15-surprised.jpg
-        caption: 惊讶
-        description: 她看着他，像是在看一个从旧时光走出来的人
+        caption: 失神
+        description: 她看着他，像是忽然看见了自己早些年的日子
         original: 吃惊黎小军的单纯.png
       - src: 16-silly-smile.jpg
-        caption: 傻笑
-        description: 他还是那样笑着，好像这些年的风雨都没留下痕迹
+        caption: 仍旧
+        description: 他笑起来还是老样子，像这些年的奔波并没有真的改掉什么
         original: 傻笑.png
 
   - type: full
     src: 17-bracelet.jpg
-    caption: 金镯子
-    description: 她惊讶地发现，他心里还装着天津的小婷
+    caption: 旧念
+    description: 金镯子还没戴上，旧日的人和旧日的心思已经横在中间
     original: 买金手镯-惊讶黎小军同时想着小婷.png
 
   - type: text
@@ -119,14 +119,14 @@ layout:
   # ═══ 第三幕：分离 ═══
   - type: full
     src: 18-comfort.jpg
-    caption: 陪伴
-    description: 她炒股输光了一切，他在身边默默安慰
+    caption: 陪着
+    description: 繁华一下子散了，他却还坐在她身边，没有走开
     original: 安慰李翘.png
 
   - type: full
     src: 19-paoge-dead.jpg
-    caption: 豹哥
-    description: 那个爱她的男人走了，老鼠纹身在身上，她却泪流满面
+    caption: 诀别
+    description: 那个一直护着她的人走了，只剩那道纹身还替他留在身上
     original: 爱李翘的豹哥去世了.png
 
   # ═══ 第四幕：重逢 ═══
@@ -140,8 +140,8 @@ layout:
         description: 多年后再见，往事涌上心头，不知从何说起
         original: 第一次重逢-五味杂陈.png
       - src: 21-reunion1-truth.jpg
-        caption: 真心
-        description: 她终于说出那句埋藏多年的话
+        caption: 说破
+        description: 兜转多年，那句一直没说出口的话，终于还是说了出来
         original: 第一次重逢-直面真心.png
 
   - type: text
@@ -149,19 +149,19 @@ layout:
 
   - type: full
     src: 22-reunion2-see.jpg
-    caption: 背影
-    description: 纽约街头，她看见一个熟悉的身影骑车经过
+    caption: 一瞥
+    description: 纽约街头，一个熟悉的背影骑车掠过去，她几乎立刻就认了出来
     original: 第二次重逢-看见黎小军的背影.png
 
   - type: pair
     items:
       - src: 23-reunion2-chase.jpg
-        caption: 追逐
-        description: 她拼命追赶，穿过车水马龙
+        caption: 追上去
+        description: 她穿过人群追过去，像是想把错过的那几年一起追回来
         original: 第二次重逢-追逐骑车的黎小军.png
       - src: 24-reunion2-miss.jpg
-        caption: 错过
-        description: 红灯挡住了她，眼睁睁看着那个背影消失
+        caption: 又错过
+        description: 一盏红灯拦在前面，她只能看着那道背影重新没进人海
         original: 第二次重逢-最终没有追上黎小军.png
 
   # ═══ 第五幕：最终的重逢 ═══
@@ -170,8 +170,8 @@ layout:
 
   - type: full
     src: 25-us-life.jpg
-    caption: 异乡
-    description: 她在洗衣店打工，他在唐人街落脚，各自漂泊
+    caption: 漂泊
+    description: 她在洗衣店打工，他在唐人街落脚，日子各自往前过着
     original: 在美国的普通生活.png
 
   - type: full
@@ -183,8 +183,8 @@ layout:
   - type: pair
     items:
       - src: 27-final-recognize-him.jpg
-        caption: 认出
-        description: 她转过头，看见了那个熟悉的人
+        caption: 回身
+        description: 她转过头，一眼就看见了那个熟悉的人
         original: 最终的重逢-认出了黎小军.png
       - src: 28-final-recognize-her.jpg
         caption: 是你
@@ -194,8 +194,8 @@ layout:
   - type: pair
     items:
       - src: 29-final-smile-her.jpg
-        caption: 笑
-        description: 她笑了，像当年一样甜
+        caption: 如旧
+        description: 她终于笑了，眉眼一弯，还是当年的样子
         original: 最终的重逢-李翘开心的笑了.png
       - src: 30-final-smile-him.jpg
         caption: 在梦里
