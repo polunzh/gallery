@@ -3,31 +3,31 @@ title: 甜蜜蜜
 cover: 01-true-meeting.jpg
 date: "2025-04"
 preface: |
-  黎小军和李翘在时代洪流中相遇、相识、走散，又在多年后异乡重逢。原来萍水相逢的人，也会在漫长岁月里兜兜转转，最后再一次走到彼此面前。
+  黎小军和李翘在香港相识。那时他们都只是南下来讨生活的人，白天奔忙，夜里把盼头寄在更远的地方。后来他们相伴、失散、各自漂流，身边的人一个个退场，城市也一站站变换，等再回头，最先走远的反而是当年以为抓得住的东西。
 
-  就像我们每个人，都在这个世界上飘着，经历离散，也等待重逢。
+  《甜蜜蜜》写的不只是爱情，更是那一代人的身世：离乡、谋生、上路、失散。许多苦不是一下子落下来的，而是在日子一天一天往前挪的时候，慢慢把人和旧事都留在了身后。
 layout:
   # ═══ 楔子：真正的相遇 ═══
   - type: hero
     src: 01-true-meeting.jpg
-    caption: 命中注定
-    description: 一九八六年，同一列南下的火车，车厢里飘着同一首歌，他们背对背坐着，还不知道命运早已将他们系在一起
+    caption: 同途
+    description: 一九八六年，同一列南下的火车，车厢里飘着同一首歌，他们背对背坐着，还不知道往后的年月会彼此牵连
     original: 真正的相遇.png
 
   - type: text
-    content: 有些缘分，早在相遇之前就已开始
+    content: 南下的人挤上同一班车，落地以后，却要各自去受各自的苦
 
   # ═══ 第一幕：香港，一九八六年 ═══
   - type: full
     src: 02-first-meeting.jpg
     caption: 初见
-    description: 麦当劳里，她教他粤语，他请她吃饭，异乡的第一丝暖意
+    description: 麦当劳里，她教他粤语，他请她吃饭，两个初到香港的人先学着在陌生地方站稳脚跟
     original: 第一次见面.png
 
   - type: full
     src: 03-complex-feeling.jpg
     caption: 复杂
-    description: 她侧头看他，眼神里有些说不清的情绪，是异乡遇到的第一个同类
+    description: 她侧头看他，眼神里有些说不清的情绪，像在异乡忽然认出一点熟悉
     original: 初遇后复杂的心情.png
 
   - type: pair
@@ -45,7 +45,7 @@ layout:
     items:
       - src: 06-aunt-care.jpg
         caption: 落脚处
-        description: 姑姑的屋里永远有热汤，是漂泊的人唯一的依靠
+        description: 姑姑的屋里总有热汤，也给初到香港的人留下一点安稳
         original: 姑姑的照顾.png
       - src: 07-rain-delivery.jpg
         caption: 奔波
@@ -55,7 +55,7 @@ layout:
   - type: full
     src: 08-english-class.jpg
     caption: 同桌
-    description: 窄小的教室里，他们一边学英文，一边把未来说得很近
+    description: 窄小的教室里，他们一边学英文，一边把往后的路想得很远
     original: 上英语课.png
 
   - type: pair
@@ -70,7 +70,7 @@ layout:
         original: 查银行卡余额.png
 
   - type: text
-    content: 那时候，我们都以为未来会不一样
+    content: 那时候，人人都信再往前走一点，苦日子总会有个尽头
 
   # ═══ 第二幕：甜蜜蜜 ═══
   - type: full
@@ -87,46 +87,46 @@ layout:
         original: 第一次骑自行车-唱歌.png
       - src: 13-beautiful.jpg
         caption: 一刻
-        description: 那时他们都以为，这样的日子还会继续下去
+        description: 那时他们都以为，这样的日子还可以再久一点
         original: 美好.png
 
   - type: full
     src: 14-daily-life.jpg
     caption: 日常
-    description: 一起吃馄饨，一起数零钱，平凡的相伴最是难得
+    description: 一起吃馄饨，一起数零钱，苦日子里也有能让人暂时忘了漂泊的时候
     original: 日常相处.png
 
   - type: pair
     items:
       - src: 15-surprised.jpg
         caption: 失神
-        description: 她看着他，像是忽然看见了自己早些年的日子
+        description: 她看着他，一时没有说话，神情像被什么旧事轻轻碰了一下
         original: 吃惊黎小军的单纯.png
       - src: 16-silly-smile.jpg
         caption: 仍旧
-        description: 他笑起来还是老样子，像这些年的奔波并没有真的改掉什么
+        description: 他笑起来还是从前的样子，像这些年的奔忙也没把那点心气磨尽
         original: 傻笑.png
 
   - type: full
     src: 17-bracelet.jpg
     caption: 旧念
-    description: 金镯子还没戴上，旧日的人和旧日的心思已经横在中间
+    description: 镯子拿在手里，他忽然想起天津，想起那段始终没真正过去的旧日子
     original: 买金手镯-惊讶黎小军同时想着小婷.png
 
   - type: text
-    content: 命运弄人，我们都没有选对时间
+    content: 人一忙着往前赶，许多话就只能压下去，压着压着，也就真的成了过去
 
   # ═══ 第三幕：分离 ═══
   - type: full
     src: 18-comfort.jpg
     caption: 陪着
-    description: 繁华一下子散了，他却还坐在她身边，没有走开
+    description: 她以为抓住了上去的梯子，转眼又跌回原处；他还坐在她身边，没有走开
     original: 安慰李翘.png
 
   - type: full
     src: 19-paoge-dead.jpg
     caption: 诀别
-    description: 那个一直护着她的人走了，只剩那道纹身还替他留在身上
+    description: 那个一直护着她的人走了，只剩身上的纹身替这段旧事作证
     original: 爱李翘的豹哥去世了.png
 
   # ═══ 第四幕：重逢 ═══
@@ -141,11 +141,11 @@ layout:
         original: 第一次重逢-五味杂陈.png
       - src: 21-reunion1-truth.jpg
         caption: 说破
-        description: 兜转多年，那句一直没说出口的话，终于还是说了出来
+        description: 兜转多年，有些话终于说出口，可年头已经旧了，人也不在原来的地方了
         original: 第一次重逢-直面真心.png
 
   - type: text
-    content: 可惜造化弄人，终究还是错过
+    content: 话终于说明白，人生却早已把他们带去了两边
 
   - type: full
     src: 22-reunion2-see.jpg
@@ -157,7 +157,7 @@ layout:
     items:
       - src: 23-reunion2-chase.jpg
         caption: 追上去
-        description: 她穿过人群追过去，像是想把错过的那几年一起追回来
+        description: 她穿过人群追过去，脚步急得像要从喧闹里追回一段已经沉下去的年月
         original: 第二次重逢-追逐骑车的黎小军.png
       - src: 24-reunion2-miss.jpg
         caption: 又错过
@@ -171,13 +171,13 @@ layout:
   - type: full
     src: 25-us-life.jpg
     caption: 漂泊
-    description: 她在洗衣店打工，他在唐人街落脚，日子各自往前过着
+    description: 她在洗衣店打工，他在唐人街落脚，各自在异乡讨生活，把旧人旧事一层层压进日常
     original: 在美国的普通生活.png
 
   - type: full
     src: 26-teresa-dead.jpg
     caption: 邓丽君
-    description: 电视播报邓丽君去世的消息，他们同时驻足在商店橱窗前
+    description: 电视里传来邓丽君去世的消息，他们同时停在橱窗前，像被那些已经散掉的年月绊住了脚步
     original: 最终的重逢-观看邓丽君去世的消息.png
 
   - type: pair
@@ -188,14 +188,14 @@ layout:
         original: 最终的重逢-认出了黎小军.png
       - src: 28-final-recognize-her.jpg
         caption: 是你
-        description: 他也认出了她，岁月在脸上，情意未改
+        description: 他也认出了她，隔着这些年，像忽然认出自己也曾这样年轻过
         original: 最终的重逢-黎小军认出了李翘.png
 
   - type: pair
     items:
       - src: 29-final-smile-her.jpg
         caption: 如旧
-        description: 她终于笑了，眉眼一弯，还是当年的样子
+        description: 她终于笑了，那一点神情和当年并没有两样
         original: 最终的重逢-李翘开心的笑了.png
       - src: 30-final-smile-him.jpg
         caption: 在梦里
