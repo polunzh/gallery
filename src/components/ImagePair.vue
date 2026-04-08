@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ImageItem } from '@/types/album'
+import BlurImage from './BlurImage.vue'
 
 defineProps<{
   items: [ImageItem, ImageItem]
@@ -24,7 +25,7 @@ defineEmits<{
       @keydown.space.prevent="$emit('click', i)"
     >
       <div class="image-wrapper">
-        <img :src="getUrl(item.src)" :alt="item.caption || ''" loading="lazy">
+        <BlurImage :src="getUrl(item.src)" :alt="item.caption || ''" loading="lazy" />
       </div>
       <div v-if="item.caption || item.description" class="info">
         <p v-if="item.caption" class="caption">{{ item.caption }}</p>
@@ -64,23 +65,22 @@ defineEmits<{
   box-shadow: var(--shadow-md);
 }
 
-.image-wrapper img {
-  width: 100%;
+.image-wrapper :deep(.blur-image) {
   transition: transform var(--duration-normal) var(--ease-out);
 }
 
-.image-wrapper:hover img {
+.image-wrapper:hover :deep(.blur-image) {
   transform: scale(1.015);
 }
 
 /* Touch feedback */
-.image-wrapper:active img {
+.image-wrapper:active :deep(.blur-image) {
   transform: scale(0.98);
   opacity: 0.9;
 }
 
 @media (hover: none) {
-  .image-wrapper:hover img {
+  .image-wrapper:hover :deep(.blur-image) {
     transform: none;
   }
 }

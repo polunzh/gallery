@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import BlurImage from './BlurImage.vue'
+
 defineProps<{
   src: string
   caption?: string
@@ -19,7 +21,7 @@ defineEmits<{
     @keydown.enter="$emit('click')"
     @keydown.space.prevent="$emit('click')"
   >
-    <img :src="src" :alt="caption || ''" loading="eager">
+    <BlurImage :src="src" :alt="caption || ''" loading="eager" />
     <div class="hero-overlay">
       <div class="hero-info">
         <h2 v-if="caption" class="hero-caption">{{ caption }}</h2>
@@ -46,25 +48,22 @@ defineEmits<{
   outline-offset: 2px;
 }
 
-.hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hero :deep(.blur-image) {
   transition: transform var(--duration-normal) var(--ease-out);
 }
 
-.hero:hover img {
+.hero:hover :deep(.blur-image) {
   transform: scale(1.015);
 }
 
 /* Touch feedback */
-.hero:active img {
+.hero:active :deep(.blur-image) {
   transform: scale(0.98);
   opacity: 0.9;
 }
 
 @media (hover: none) {
-  .hero:hover img {
+  .hero:hover :deep(.blur-image) {
     transform: none;
   }
 }

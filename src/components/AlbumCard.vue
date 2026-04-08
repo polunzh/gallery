@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import type { Album } from '@/types/album'
 import { useImageUrl } from '@/composables/useImageUrl'
+import BlurImage from './BlurImage.vue'
 
 const props = defineProps<{
   album: Album
@@ -51,7 +52,7 @@ const formattedDate = computed(() => {
 <template>
   <RouterLink :to="`/${album.id}`" class="album-card">
     <div class="card-cover">
-      <img :src="getUrl(album.cover)" :alt="album.title" loading="lazy">
+      <BlurImage :src="getUrl(album.cover)" :alt="album.title" loading="lazy" class="blur-image-container" />
       <span class="card-badge">{{ imageCount }} 张</span>
     </div>
     <div class="card-info">
@@ -87,28 +88,30 @@ const formattedDate = computed(() => {
   box-shadow: var(--shadow-md);
 }
 
-.card-cover img {
+.blur-image-container {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+}
+
+.blur-image-container :deep(.blur-image) {
   transition: transform var(--duration-normal) var(--ease-out);
 }
 
-.album-card:hover .card-cover img {
+.album-card:hover .blur-image-container :deep(.blur-image) {
   transform: scale(1.03);
 }
 
 /* Touch feedback */
-.album-card:active .card-cover img {
+.album-card:active .blur-image-container :deep(.blur-image) {
   transform: scale(0.98);
   opacity: 0.9;
 }
 
 @media (hover: none) {
-  .album-card:hover .card-cover img {
+  .album-card:hover .blur-image-container :deep(.blur-image) {
     transform: none;
   }
-  .album-card:active .card-cover img {
+  .album-card:active .blur-image-container :deep(.blur-image) {
     transform: scale(0.98);
   }
 }
