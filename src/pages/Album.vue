@@ -96,6 +96,11 @@ useHead(computed(() => ({
         @click="openLightbox(entry)"
       />
 
+      <!-- Preface: shown after first hero if exists -->
+      <div v-if="entry.type === 'hero' && album.preface && i === 0" class="album-preface content-wrap reveal">
+        <p class="preface-content">{{ album.preface }}</p>
+      </div>
+
       <!-- Full-width image: also edge-to-edge -->
       <div v-else-if="entry.type === 'full'" class="full-bleed reveal">
         <div class="full-bleed-inner">
@@ -231,7 +236,31 @@ useHead(computed(() => ({
   background: var(--divider);
 }
 
+/* Album preface styling */
+.album-preface {
+  padding-top: var(--space-4xl);
+  padding-bottom: var(--space-2xl);
+}
+
+.preface-content {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 2;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  white-space: pre-line;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 @media (max-width: 767px) {
+  .preface-content {
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    line-height: 1.9;
+  }
+
   .album-nav {
     padding: 12px 16px;
   }

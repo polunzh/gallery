@@ -38,5 +38,6 @@ export interface Album {
   title: string
   cover: string
   date: string
+  preface?: string
   layout: LayoutEntry[]
 }
