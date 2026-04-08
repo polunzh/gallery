@@ -16,6 +16,7 @@ useHead({ title: '拾光' })
   <div ref="containerRef" class="home">
     <header class="home-header reveal">
       <h1 class="site-title">拾光</h1>
+      <p class="site-subtitle">影像留存的时间</p>
     </header>
 
     <main class="album-grid">
@@ -40,21 +41,44 @@ useHead({ title: '拾光' })
 }
 
 .home-header {
-  padding: 80px 0 60px;
+  padding: 100px 0 60px;
+  text-align: center;
 }
 
 .site-title {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 700;
   color: var(--text-accent-light);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.02em;
 }
 
+.site-subtitle {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* Masonry layout - Spotify/Pinterest inspired */
 .album-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 48px;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .album-grid {
+    /* Masonry-like asymmetric grid */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  /* Every other card spans full width for visual rhythm */
+  .album-grid > *:nth-child(3n) {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 767px) {
@@ -63,15 +87,19 @@ useHead({ title: '拾光' })
   }
 
   .home-header {
-    padding: 48px 0 32px;
+    padding: 60px 0 40px;
   }
 
   .site-title {
-    font-size: 22px;
+    font-size: 28px;
+  }
+
+  .site-subtitle {
+    font-size: 13px;
   }
 
   .album-grid {
-    gap: 32px;
+    gap: 24px;
   }
 }
 </style>

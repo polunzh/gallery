@@ -39,9 +39,16 @@ defineEmits<{
 }
 
 .image-wrapper {
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  transition: all var(--duration-fast) ease;
+}
+
+.image-wrapper:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-md);
 }
 
 .image-wrapper img {

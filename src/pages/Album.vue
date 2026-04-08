@@ -150,7 +150,7 @@ useHead(computed(() => ({
   right: 0;
   z-index: 50;
   padding: 16px 40px;
-  background: linear-gradient(to bottom, rgba(16, 13, 9, 0.95) 0%, rgba(16, 13, 9, 0.6) 60%, transparent 100%);
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.7) 50%, transparent 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;

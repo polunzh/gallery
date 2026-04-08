@@ -61,9 +61,9 @@ defineEmits<{
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(16, 13, 9, 0.7) 0%,
-    rgba(16, 13, 9, 0.2) 35%,
-    rgba(16, 13, 9, 0.05) 60%,
+    rgba(10, 10, 10, 0.85) 0%,
+    rgba(10, 10, 10, 0.4) 40%,
+    rgba(10, 10, 10, 0.1) 70%,
     transparent 100%
   );
   display: flex;
@@ -83,7 +83,7 @@ defineEmits<{
 .hero-description {
   margin-top: 8px;
   font-size: 14px;
-  color: rgba(232, 223, 210, 0.7);
+  color: var(--text-secondary);
   letter-spacing: 0.04em;
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }

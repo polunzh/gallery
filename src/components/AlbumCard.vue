@@ -47,6 +47,14 @@ const imageCount = computed(() => {
   overflow: hidden;
   aspect-ratio: 21 / 9;
   position: relative;
+  /* Linear-inspired subtle border */
+  border: 1px solid var(--border-subtle);
+  transition: all var(--duration-fast) ease;
+}
+
+.card-cover:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-md);
 }
 
 .card-cover img {
@@ -75,21 +83,24 @@ const imageCount = computed(() => {
   }
 }
 
+/* Spotify-inspired pill badge */
 .card-badge {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-size: 11px;
-  color: rgba(232, 223, 210, 0.85);
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  padding: 3px 10px;
+  bottom: 12px;
+  right: 12px;
+  font-size: 12px;
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 6px 14px;
   border-radius: var(--radius-pill);
   letter-spacing: 0.04em;
+  border: 1px solid var(--border-subtle);
 }
 
 .card-info {
-  padding: 14px 4px 0;
+  padding: 16px 4px 0;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -100,6 +111,7 @@ const imageCount = computed(() => {
   font-size: 20px;
   font-weight: 700;
   color: var(--text-accent-light);
+  letter-spacing: -0.01em;
 }
 
 .card-meta {
@@ -115,8 +127,8 @@ const imageCount = computed(() => {
     font-size: 13px;
   }
   .card-badge {
-    font-size: 12px;
-    padding: 4px 12px;
+    font-size: 11px;
+    padding: 5px 12px;
   }
 }
 </style>
