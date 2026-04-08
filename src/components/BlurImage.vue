@@ -30,17 +30,7 @@ function onPlaceholderLoad() {
 
 <template>
   <div class="blur-image">
-    <!-- Blurred placeholder - loads first -->
-    <img
-      v-show="placeholderLoaded"
-      :src="placeholderSrc"
-      :alt="alt"
-      class="blur-image__placeholder"
-      loading="eager"
-      @load="onPlaceholderLoad"
-    >
-
-    <!-- Full resolution image - loads after -->
+    <!-- Full resolution image - loads on top -->
     <img
       :src="src"
       :alt="alt"
@@ -50,8 +40,18 @@ function onPlaceholderLoad() {
       @load="onImageLoad"
     >
 
-    <!-- Loading state -->
-    <div v-if="!placeholderLoaded" class="blur-image__skeleton"></div>
+    <!-- Blurred placeholder - shown until full image loads -->
+    <img
+      v-show="!loaded"
+      :src="placeholderSrc"
+      :alt="alt"
+      class="blur-image__placeholder"
+      loading="eager"
+      @load="onPlaceholderLoad"
+    >
+
+    <!-- Skeleton loader shown initially -->
+    <div v-if="!loaded && !placeholderLoaded" class="blur-image__skeleton"></div>
   </div>
 </template>
 
@@ -71,6 +71,7 @@ function onPlaceholderLoad() {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 /* Blurred placeholder - tiny image scaled up with blur */
