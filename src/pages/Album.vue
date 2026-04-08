@@ -73,6 +73,15 @@ function openLightbox(entry: LayoutEntry, pairIndex?: number) {
 useHead(computed(() => ({
   title: album.value ? `${album.value.title} — 拾光` : '拾光',
 })))
+
+// Format date from "2025-04" to "2025年4月"
+function formatDate(dateStr: string): string {
+  const match = dateStr.match(/^(\d{4})-(\d{1,2})$/)
+  if (match) {
+    return `${match[1]}年${parseInt(match[2])}月`
+  }
+  return dateStr
+}
 </script>
 
 <template>
@@ -128,8 +137,13 @@ useHead(computed(() => ({
       />
     </template>
 
-    <div class="album-end">
-      <div class="end-line"></div>
+    <div class="album-end reveal">
+      <div class="end-decoration">
+        <span class="end-line"></span>
+        <span class="end-text">完</span>
+        <span class="end-line"></span>
+      </div>
+      <p v-if="album.date" class="end-date">{{ formatDate(album.date) }}</p>
     </div>
 
     <SiteFooter />
@@ -226,14 +240,37 @@ useHead(computed(() => ({
 
 .album-end {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding-top: var(--space-4xl);
+  padding-bottom: var(--space-2xl);
+}
+
+.end-decoration {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .end-line {
   width: 60px;
   height: 1px;
-  background: var(--divider);
+  background: linear-gradient(to right, transparent, var(--divider), transparent);
+}
+
+.end-text {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.3em;
+  padding: 0 8px;
+}
+
+.end-date {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
 }
 
 /* Album preface styling */

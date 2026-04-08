@@ -88,7 +88,13 @@ useSwipe(swipeTarget, {
 })
 
 function onKeydown(e: KeyboardEvent) {
-  if (e.key === 'Escape') emit('close')
+  if (e.key === 'Escape') {
+    emit('close')
+  } else if (e.key === 'ArrowLeft') {
+    prev()
+  } else if (e.key === 'ArrowRight') {
+    next()
+  }
 }
 
 function preventScroll(e: TouchEvent) {
@@ -100,10 +106,12 @@ function preventScroll(e: TouchEvent) {
 onMounted(() => {
   document.addEventListener('keydown', onKeydown)
   document.addEventListener('touchmove', preventScroll, { passive: false })
+  document.body.style.overflow = 'hidden'
 })
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
   document.removeEventListener('touchmove', preventScroll)
+  document.body.style.overflow = ''
 })
 
 function onBackdropClick(e: MouseEvent) {
@@ -153,9 +161,12 @@ function onBackdropClick(e: MouseEvent) {
             </div>
             <span class="lb-counter">{{ currentIndex + 1 }} / {{ images.length }}</span>
           </div>
-          <!-- Touch hint -->
-          <div v-if="currentIndex === 0" class="touch-hint">
-            <span>左右滑动切换 · 双击放大 · 下拉关闭</span>
+          <!-- Help hint -->
+          <div class="help-hint">
+            <div class="hint-content">
+              <span class="hint-desktop">← → 切换 · ESC 关闭 · 点击外部关闭</span>
+              <span class="hint-mobile">左右滑动切换 · 双击放大 · 下拉关闭</span>
+            </div>
           </div>
         </div>
       </div>
@@ -241,17 +252,43 @@ function onBackdropClick(e: MouseEvent) {
   cursor: grab;
 }
 
-.touch-hint {
+.help-hint {
   text-align: center;
-  margin-top: 12px;
+  margin-top: 16px;
   font-size: 12px;
   color: var(--text-muted);
-  opacity: 0.7;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.help-hint:hover {
+  opacity: 1;
+}
+
+.hint-content {
+  display: inline-flex;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+}
+
+.hint-mobile {
+  display: none;
 }
 
 @media (max-width: 767px) {
-  .touch-hint {
+  .help-hint {
     font-size: 11px;
+    margin-top: 12px;
+  }
+
+  .hint-desktop {
+    display: none;
+  }
+
+  .hint-mobile {
+    display: inline;
   }
 }
 

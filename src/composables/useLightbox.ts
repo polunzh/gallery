@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 
 export interface LightboxImage {
   src: string
@@ -18,21 +18,6 @@ export function useLightbox(images: () => LightboxImage[], initialIndex: number)
     const list = images()
     currentIndex.value = (currentIndex.value - 1 + list.length) % list.length
   }
-
-  function onKeydown(e: KeyboardEvent) {
-    if (e.key === 'ArrowRight') next()
-    else if (e.key === 'ArrowLeft') prev()
-  }
-
-  onMounted(() => {
-    document.addEventListener('keydown', onKeydown)
-    document.body.style.overflow = 'hidden'
-  })
-
-  onUnmounted(() => {
-    document.removeEventListener('keydown', onKeydown)
-    document.body.style.overflow = ''
-  })
 
   return { currentIndex, next, prev }
 }

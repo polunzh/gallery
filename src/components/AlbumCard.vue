@@ -17,6 +17,35 @@ const imageCount = computed(() => {
   }
   return count
 })
+
+const descriptionPreview = computed(() => {
+  if (props.album.preface) {
+    // Take first line of preface, truncate if needed
+    const firstLine = props.album.preface.split('\n')[0].trim()
+    if (firstLine.length > 60) {
+      return firstLine.slice(0, 60) + '...'
+    }
+    return firstLine
+  }
+  // Fallback to first image description
+  for (const entry of props.album.layout) {
+    if ((entry.type === 'hero' || entry.type === 'full') && entry.description) {
+      return entry.description.length > 60
+        ? entry.description.slice(0, 60) + '...'
+        : entry.description
+    }
+  }
+  return ''
+})
+
+// Format date from "2025-04" to "2025年4月"
+const formattedDate = computed(() => {
+  const match = props.album.date.match(/^(\d{4})-(\d{1,2})$/)
+  if (match) {
+    return `${match[1]}年${parseInt(match[2])}月`
+  }
+  return props.album.date
+})
 </script>
 
 <template>
@@ -27,7 +56,8 @@ const imageCount = computed(() => {
     </div>
     <div class="card-info">
       <h3 class="card-title">{{ album.title }}</h3>
-      <span class="card-meta">{{ album.date }}</span>
+      <p v-if="descriptionPreview" class="card-description">{{ descriptionPreview }}</p>
+      <span class="card-meta">{{ formattedDate }}</span>
     </div>
   </RouterLink>
 </template>
@@ -102,8 +132,8 @@ const imageCount = computed(() => {
 .card-info {
   padding: 16px 4px 0;
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .card-title {
@@ -119,12 +149,26 @@ const imageCount = computed(() => {
   color: var(--text-muted);
 }
 
+.card-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 4px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 @media (max-width: 767px) {
   .card-title {
     font-size: 18px;
   }
+  .card-description {
+    font-size: 12px;
+  }
   .card-meta {
-    font-size: 13px;
+    font-size: 12px;
   }
   .card-badge {
     font-size: 11px;
