@@ -11,7 +11,7 @@ layout:
   - type: hero
     src: 01-true-meeting.jpg
     caption: 命中注定
-    description: 一九八六年，同一列南下的火车，同一副耳机里的邓丽君，他们背对背坐着，还不知道命运早已将他们系在一起
+    description: 一九八六年，同一列南下的火车，车厢里飘着同一首歌，他们背对背坐着，还不知道命运早已将他们系在一起
     original: 真正的相遇.png
 
   - type: text

@@ -17,7 +17,11 @@ defineEmits<{
       v-for="(item, i) in items"
       :key="i"
       class="pair-item"
+      role="button"
+      tabindex="0"
       @click="$emit('click', i)"
+      @keydown.enter="$emit('click', i)"
+      @keydown.space.prevent="$emit('click', i)"
     >
       <div class="image-wrapper">
         <img :src="getUrl(item.src)" :alt="item.caption || ''" loading="lazy">
@@ -36,6 +40,15 @@ defineEmits<{
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin: var(--space-2xl) 0;
+}
+
+.pair-item {
+  outline: none;
+}
+
+.pair-item:focus-visible {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 2px;
 }
 
 .image-wrapper {

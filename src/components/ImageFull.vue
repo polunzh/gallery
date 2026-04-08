@@ -12,7 +12,14 @@ defineEmits<{
 
 <template>
   <div class="image-full">
-    <div class="image-wrapper" @click="$emit('click')">
+    <div
+      class="image-wrapper"
+      role="button"
+      tabindex="0"
+      @click="$emit('click')"
+      @keydown.enter="$emit('click')"
+      @keydown.space.prevent="$emit('click')"
+    >
       <img :src="src" :alt="caption || ''" loading="lazy">
     </div>
     <div v-if="caption || description" class="info">
@@ -33,6 +40,12 @@ defineEmits<{
   cursor: pointer;
   border: 1px solid var(--border-subtle);
   transition: all var(--duration-fast) ease;
+  outline: none;
+}
+
+.image-wrapper:focus-visible {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 2px;
 }
 
 .image-wrapper:hover {

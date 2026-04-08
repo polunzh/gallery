@@ -11,7 +11,14 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="hero reveal" @click="$emit('click')">
+  <div
+    class="hero reveal"
+    role="button"
+    tabindex="0"
+    @click="$emit('click')"
+    @keydown.enter="$emit('click')"
+    @keydown.space.prevent="$emit('click')"
+  >
     <img :src="src" :alt="caption || ''" loading="eager">
     <div class="hero-overlay">
       <div class="hero-info">
@@ -31,6 +38,12 @@ defineEmits<{
   overflow: hidden;
   cursor: pointer;
   margin-bottom: var(--space-2xl);
+  outline: none;
+}
+
+.hero:focus-visible {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 2px;
 }
 
 .hero img {

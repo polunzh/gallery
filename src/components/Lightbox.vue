@@ -21,6 +21,7 @@ const current = computed(() => props.images[currentIndex.value])
 
 const swipeTarget = ref<HTMLElement | null>(null)
 const imageContainer = ref<HTMLElement | null>(null)
+const closeButton = ref<HTMLButtonElement | null>(null)
 const isZoomed = ref(false)
 const zoomScale = ref(1)
 const panX = ref(0)
@@ -107,6 +108,8 @@ onMounted(() => {
   document.addEventListener('keydown', onKeydown)
   document.addEventListener('touchmove', preventScroll, { passive: false })
   document.body.style.overflow = 'hidden'
+  // Focus the close button for accessibility
+  closeButton.value?.focus()
 })
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
@@ -128,9 +131,16 @@ function onBackdropClick(e: MouseEvent) {
 
 <template>
   <Teleport to="body">
-    <div ref="swipeTarget" class="lightbox" @click="onBackdropClick">
+    <div
+      ref="swipeTarget"
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="图片查看器"
+      @click="onBackdropClick"
+    >
       <!-- Close button -->
-      <button class="lb-close" @click="emit('close')" aria-label="关闭">✕</button>
+      <button ref="closeButton" class="lb-close" @click="emit('close')" aria-label="关闭">✕</button>
 
       <!-- Desktop nav -->
       <button class="lb-nav lb-prev" @click="prev" aria-label="上一张">‹</button>

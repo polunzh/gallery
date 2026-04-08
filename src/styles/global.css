@@ -19,7 +19,7 @@
   /* Cool white text system */
   --text-primary: rgba(255, 255, 255, 0.9);
   --text-secondary: rgba(255, 255, 255, 0.6);
-  --text-muted: rgba(255, 255, 255, 0.4);
+  --text-muted: rgba(255, 255, 255, 0.5);
   --text-warm: #e8dfd2;
   --text-accent: #c8a87a;
   --text-accent-light: #dcc49e;
