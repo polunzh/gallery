@@ -400,8 +400,5 @@ function onBackdropClick(e: MouseEvent) {
     font-size: 12px;
   }
 
-  .touch-hint {
-    font-size: 11px;
-  }
 }
 </style>
