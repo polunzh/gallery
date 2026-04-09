@@ -155,8 +155,8 @@
         /* 流动线 */
         .flow-line-container {
             flex: 1;
-            height: 40px;
-            margin: 0 20px;
+            height: 60px;
+            margin: 0 12px;
             position: relative;
             display: flex;
             align-items: center;
@@ -202,42 +202,49 @@
             position: absolute;
             left: 0;
             right: 0;
-            height: 40px;
+            top: 0;
+            bottom: 0;
+            pointer-events: none;
         }
 
         .particle {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
+            margin-top: -12px;
+            font-size: 22px;
+            line-height: 1;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
             animation: flowRight 3s linear infinite;
             opacity: 0;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         @keyframes flowRight {
             0% {
                 left: 0%;
                 opacity: 0;
-                transform: translateY(-50%) scale(0.6);
+                transform: scale(0.6);
             }
             5% {
                 opacity: 1;
-                transform: translateY(-50%) scale(1.1);
+                transform: scale(1.1);
             }
             15% {
-                transform: translateY(-50%) scale(1);
+                transform: scale(1);
             }
             85% {
                 opacity: 1;
             }
             95% {
-                transform: translateY(-50%) scale(0.9);
+                transform: scale(0.9);
             }
             100% {
                 left: 100%;
                 opacity: 0;
-                transform: translateY(-50%) scale(0.6);
+                transform: scale(0.6);
             }
         }
 
@@ -264,19 +271,23 @@
         }
 
         .card-amount {
-            font-size: 32px;
+            font-size: 20px;
             font-weight: 700;
             color: #1e293b;
             font-variant-numeric: tabular-nums;
             margin-bottom: 4px;
             font-family: 'SF Mono', Monaco, monospace;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .flowing-number {
-            font-size: 13px;
+            font-size: 11px;
             color: #ef4444;
             font-family: 'SF Mono', Monaco, monospace;
             animation: flash 0.5s ease-in-out infinite alternate;
+            white-space: nowrap;
         }
 
         @keyframes flash {
@@ -285,8 +296,9 @@
         }
 
         .card-sub {
-            font-size: 13px;
+            font-size: 11px;
             color: #64748b;
+            white-space: nowrap;
         }
 
         .card.at-risk {
@@ -347,10 +359,11 @@
         }
 
         .ring-value {
-            font-size: 36px;
+            font-size: 28px;
             font-weight: 700;
             color: #1e293b;
             font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
 
         .ring-label {
@@ -363,7 +376,7 @@
         .stats {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 20px;
             padding-top: 24px;
             border-top: 1px solid #e2e8f0;
         }
@@ -401,10 +414,11 @@
         }
 
         .time-value {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 700;
             color: #1e293b;
             font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
 
         .time-label {
@@ -416,7 +430,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .stat-row {
@@ -430,8 +444,9 @@
         }
 
         .stat-text {
-            font-size: 13px;
+            font-size: 12px;
             color: #64748b;
+            white-space: nowrap;
         }
 
         .stat-text strong {
