@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Challenge Dashboard</title>
+    <title>减肥挑战 - 实时赌注追踪</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
         * {
             margin: 0;
@@ -14,8 +14,8 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f5f5f5;
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,19 +25,21 @@
 
         .phone {
             width: 375px;
-            background: #fafafa;
-            border-radius: 40px;
-            padding: 40px 24px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 32px 20px;
+            box-shadow: 0 32px 64px -16px rgba(0,0,0,0.4),
+                        0 0 0 1px rgba(255,255,255,0.1) inset;
+            backdrop-filter: blur(20px);
         }
 
         /* Header */
         .header-title {
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            color: #94a3b8;
-            margin-bottom: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 16px;
+            text-align: center;
         }
 
         /* Challenge Banner */
@@ -45,10 +47,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: linear-gradient(135deg, #14b8a6, #0d9488);
-            border-radius: 16px;
-            padding: 16px 20px;
-            margin-bottom: 32px;
+            background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
         }
 
         .challenge-left {
@@ -78,23 +81,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #e2e8f0;
         }
 
         .section-title {
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
         }
 
         .live-badge {
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            color: #ef4444;
+            color: #dc2626;
+            background: #fef2f2;
+            padding: 4px 10px;
+            border-radius: 20px;
         }
 
         .live-dot {
@@ -197,6 +204,11 @@
             100% { transform: translateX(100%); }
         }
 
+        @keyframes flash {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+
         /* 流动的钱 - 增强流逝感 */
         .flow-particles {
             position: absolute;
@@ -248,88 +260,110 @@
             }
         }
 
-        /* Cards */
+        /* Cards - 主卡片更突出 */
         .cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 12px;
             margin-bottom: 24px;
         }
 
         .card {
-            background: #f1f5f9;
-            border-radius: 20px;
-            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            padding: 24px 20px;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #ef4444);
+        }
+
+        .card.primary {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+        }
+
+        .card.primary::before {
+            background: #f59e0b;
+        }
+
+        .card.secondary {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+        }
+
+        .card.secondary::before {
+            background: #10b981;
         }
 
         .card-label {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            color: #94a3b8;
-            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 8px;
         }
 
         .card-amount {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 36px;
+            font-weight: 900;
             color: #1e293b;
             font-variant-numeric: tabular-nums;
-            margin-bottom: 4px;
-            font-family: 'SF Mono', Monaco, monospace;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -0.02em;
+        }
+
+        .card-amount .decimal {
+            font-size: 24px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .card-amount.precise {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .card-amount.precise {
+            opacity: 1;
         }
 
         .flowing-number {
-            font-size: 11px;
-            color: #ef4444;
-            font-family: 'SF Mono', Monaco, monospace;
-            animation: flash 0.5s ease-in-out infinite alternate;
-            white-space: nowrap;
-        }
-
-        @keyframes flash {
-            from { opacity: 0.7; }
-            to { opacity: 1; }
+            font-size: 14px;
+            color: #dc2626;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
         }
 
         .card-sub {
-            font-size: 11px;
-            color: #64748b;
-            white-space: nowrap;
+            font-size: 13px;
+            color: #059669;
+            font-weight: 500;
         }
 
-        .card.at-risk {
-            background: linear-gradient(135deg, #fef2f2, #fee2e2);
-        }
-
-        .card.at-risk .card-amount {
-            color: #ef4444;
-        }
-
-        .card.at-risk .card-sub {
-            color: #ef4444;
-        }
-
-        .change-negative {
-            font-size: 14px;
-            font-weight: 600;
-            color: #ef4444;
-        }
-
-        /* Progress Ring */
+        /* Progress Ring - 更简洁 */
         .ring-section {
             display: flex;
             justify-content: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .ring-container {
             position: relative;
-            width: 140px;
-            height: 140px;
+            width: 120px;
+            height: 120px;
         }
 
         .ring-container svg {
@@ -339,13 +373,13 @@
         .ring-bg {
             fill: none;
             stroke: #e2e8f0;
-            stroke-width: 10;
+            stroke-width: 8;
         }
 
         .ring-progress {
             fill: none;
             stroke: url(#ringGradient);
-            stroke-width: 10;
+            stroke-width: 8;
             stroke-linecap: round;
             transition: stroke-dashoffset 0.1s linear;
         }
@@ -359,99 +393,78 @@
         }
 
         .ring-value {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: #1e293b;
             font-variant-numeric: tabular-nums;
-            white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .ring-label {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 4px;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 2px;
         }
 
-        /* Stats with Time Ring */
+        /* Stats - 更紧凑 */
         .stats {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding-top: 24px;
-            border-top: 1px solid #e2e8f0;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
         }
 
-        .time-ring-container {
-            position: relative;
-            width: 100px;
-            height: 100px;
-        }
-
-        .time-ring-container svg {
-            transform: rotate(-90deg);
-        }
-
-        .time-ring-bg {
-            fill: none;
-            stroke: #e2e8f0;
-            stroke-width: 6;
-        }
-
-        .time-ring-progress {
-            fill: none;
-            stroke: #3b82f6;
-            stroke-width: 6;
-            stroke-linecap: round;
-            transition: stroke-dashoffset 0.1s linear;
-        }
-
-        .time-ring-inner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .stat-block {
             text-align: center;
+            flex: 1;
         }
 
-        .time-value {
-            font-size: 18px;
+        .stat-value {
+            font-size: 20px;
             font-weight: 700;
             color: #1e293b;
-            font-variant-numeric: tabular-nums;
-            white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 4px;
         }
 
-        .time-label {
-            font-size: 10px;
-            color: #94a3b8;
-        }
-
-        .stat-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .stat-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .stat-icon {
-            font-size: 18px;
-        }
-
-        .stat-text {
-            font-size: 12px;
+        .stat-label {
+            font-size: 11px;
             color: #64748b;
-            white-space: nowrap;
         }
 
-        .stat-text strong {
-            color: #1e293b;
-            font-weight: 600;
+        .stat-divider {
+            width: 1px;
+            background: #e2e8f0;
+        }
+
+        /* Story Context */
+        .story-context {
+            margin-top: 20px;
+            padding: 16px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .story-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .story-text {
+            font-size: 12px;
+            color: #78350f;
+            line-height: 1.6;
+        }
+
+        .story-highlight {
+            font-weight: 700;
+            color: #92400e;
         }
     </style>
 </head>
@@ -515,15 +528,21 @@
 
         <!-- Cards -->
         <div class="cards">
-            <div class="card">
-                <div class="card-label">仑剩余金额</div>
-                <div class="card-amount" id="balance">¥1,024.00</div>
-                <div class="flowing-number" id="burning">-¥0.00</div>
+            <div class="card primary">
+                <div class="card-label">💰 仑的赌注余额</div>
+                <div class="card-amount">
+                    ¥<span id="balance-int">1,024</span><span class="decimal">.<span id="balance-dec">00</span></span>
+                </div>
+                <div class="card-amount precise" id="balance-precise">¥1,024.000000</div>
+                <div class="flowing-number">已流失 <span id="burning">¥0.00</span></div>
             </div>
-            <div class="card" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);">
-                <div class="card-label">Xiao.诗已获得</div>
-                <div class="card-amount" id="xiao-amount" style="color: #059669;">¥0.00</div>
-                <div class="card-sub" style="color: #059669;">达成目标即可获得</div>
+            <div class="card secondary">
+                <div class="card-label">🏆 Xiao.诗的目标奖金</div>
+                <div class="card-amount" style="color: #059669;">
+                    ¥<span id="xiao-int">0</span><span class="decimal">.<span id="xiao-dec">00</span></span>
+                </div>
+                <div class="card-amount precise" id="xiao-precise" style="color: #059669;">¥0.000000</div>
+                <div class="card-sub">减到50kg即可全额获得</div>
             </div>
         </div>
 
@@ -542,29 +561,46 @@
             </div>
         </div>
 
-        <!-- Stats with Time Ring -->
-        <div class="stats">
-            <div class="time-ring-container">
-                <svg width="100" height="100" viewBox="0 0 100 100">
-                    <circle class="time-ring-bg" cx="50" cy="50" r="42"/>
-                    <circle class="time-ring-progress" id="time-ring" cx="50" cy="50" r="42"
-                            stroke-dasharray="263.89" stroke-dashoffset="0"/>
+        <!-- Progress Ring -->
+        <div class="ring-section">
+            <div class="ring-container">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                    <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                    <circle class="ring-progress" id="ring" cx="60" cy="60" r="52"
+                            stroke-dasharray="326.73" stroke-dashoffset="326.73"/>
                 </svg>
-                <div class="time-ring-inner">
-                    <div class="time-value" id="days">--</div>
-                    <div class="time-label">天剩余</div>
+                <div class="ring-inner">
+                    <div class="ring-value" id="percent">0%</div>
+                    <div class="ring-label">资金已转移</div>
                 </div>
             </div>
+        </div>
 
-            <div class="stat-info">
-                <div class="stat-row">
-                    <span class="stat-icon">⚡</span>
-                    <span class="stat-text">每秒流失 <strong id="rate">¥0.00</strong></span>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-icon">📅</span>
-                    <span class="stat-text">截止 <strong>5月8日 08:00</strong></span>
-                </div>
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-block">
+                <div class="stat-value" id="days">--</div>
+                <div class="stat-label">天剩余</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-block">
+                <div class="stat-value" id="rate">¥0.00</div>
+                <div class="stat-label">每秒流失</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-block">
+                <div class="stat-value">5/8</div>
+                <div class="stat-label">截止日</div>
+            </div>
+        </div>
+
+        <!-- Story Context -->
+        <div class="story-context">
+            <div class="story-title">🏋️ 挑战规则</div>
+            <div class="story-text">
+                Xiao.诗需要在 <span class="story-highlight">2026年5月8日早8点</span> 前减重至 <span class="story-highlight">50kg</span>。
+                每过一秒，仑的¥1024赌注就流逝一部分到Xiao.诗的奖金池。
+                如果目标达成，Xiao.诗获得全部奖金；如果失败，剩余金额归还仑。
             </div>
         </div>
     </div>
@@ -578,7 +614,15 @@
         const TOTAL_DURATION = END_DATE - START_DATE;
         const RATE = TOTAL_AMOUNT / (TOTAL_DURATION / 1000);
 
-        let lastParticleUpdate = 0;
+        function formatMoney(amount) {
+            const intPart = Math.floor(amount);
+            const decPart = Math.floor((amount % 1) * 100);
+            return {
+                int: intPart.toLocaleString(),
+                dec: decPart.toString().padStart(2, '0'),
+                full: '¥' + amount.toFixed(6)
+            };
+        }
 
         function update() {
             const now = Date.now();
@@ -600,34 +644,34 @@
             const currentAmount = Math.max(0, TOTAL_AMOUNT - RATE * (elapsed / 1000));
             const transferred = TOTAL_AMOUNT - currentAmount;
 
-            // 毫秒级更新金额显示
-            document.getElementById('balance').textContent = '¥' + currentAmount.toFixed(6);
-            document.getElementById('burning').textContent = '-¥' + transferred.toFixed(6);
+            // 更新仑的余额 - 主显示2位小数，精确值6位
+            const balanceFormatted = formatMoney(currentAmount);
+            document.getElementById('balance-int').textContent = balanceFormatted.int;
+            document.getElementById('balance-dec').textContent = balanceFormatted.dec;
+            document.getElementById('balance-precise').textContent = balanceFormatted.full;
 
-            // Xiao.诗已获得的金额（毫秒级）
-            document.getElementById('xiao-amount').textContent = '¥' + transferred.toFixed(6);
+            // 更新Xiao.诗的奖金
+            const xiaoFormatted = formatMoney(transferred);
+            document.getElementById('xiao-int').textContent = xiaoFormatted.int;
+            document.getElementById('xiao-dec').textContent = xiaoFormatted.dec;
+            document.getElementById('xiao-precise').textContent = xiaoFormatted.full;
 
-            // 每秒更新一次动画效果
-            if (now - lastParticleUpdate >= 1000) {
-                document.getElementById('flow-progress').style.width = (progress * 100) + '%';
-                lastParticleUpdate = now;
-            }
+            // 更新已流失金额
+            document.getElementById('burning').textContent = '¥' + transferred.toFixed(2);
 
-            // 毫秒级更新圆环进度（已转移）
-            const circumference = 376.99;
+            // 更新流动线进度
+            document.getElementById('flow-progress').style.width = (progress * 100) + '%';
+
+            // 更新圆环进度（已转移）
+            const circumference = 326.73;
             document.getElementById('ring').style.strokeDashoffset = circumference - (progress * circumference);
-            document.getElementById('percent').textContent = (progress * 100).toFixed(4) + '%';
+            document.getElementById('percent').textContent = Math.floor(progress * 100) + '%';
 
-            // 毫秒级更新时间圆环（剩余时间）
-            const timeCircumference = 263.89;
-            const timeProgress = remaining / TOTAL_DURATION;
-            document.getElementById('time-ring').style.strokeDashoffset = timeCircumference - (timeProgress * timeCircumference);
-
-            // 显示带小数的天数
-            document.getElementById('days').textContent = (remaining / 86400000).toFixed(6);
+            // 更新剩余天数 - 显示1位小数
+            document.getElementById('days').textContent = (remaining / 86400000).toFixed(1);
 
             // 更新每秒流失
-            document.getElementById('rate').textContent = '¥' + RATE.toFixed(6);
+            document.getElementById('rate').textContent = '¥' + RATE.toFixed(4);
 
             requestAnimationFrame(update);
         }
