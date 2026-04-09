@@ -211,7 +211,7 @@
             transform: translateY(-50%);
             font-size: 20px;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-            animation: flowRight 1s linear infinite;
+            animation: flowRight 3s linear infinite;
             opacity: 0;
         }
 
@@ -484,13 +484,11 @@
                 <div class="flow-line-progress" id="flow-progress" style="width: 0%"></div>
                 <div class="flow-particles">
                     <div class="particle" style="animation-delay: 0s">💰</div>
-                    <div class="particle" style="animation-delay: 0.15s">💵</div>
-                    <div class="particle" style="animation-delay: 0.3s">💰</div>
-                    <div class="particle" style="animation-delay: 0.45s">💵</div>
-                    <div class="particle" style="animation-delay: 0.6s">💰</div>
-                    <div class="particle" style="animation-delay: 0.75s">💵</div>
-                    <div class="particle" style="animation-delay: 0.9s">💰</div>
-                    <div class="particle" style="animation-delay: 1.05s">💵</div>
+                    <div class="particle" style="animation-delay: 0.5s">💵</div>
+                    <div class="particle" style="animation-delay: 1s">💰</div>
+                    <div class="particle" style="animation-delay: 1.5s">💵</div>
+                    <div class="particle" style="animation-delay: 2s">💰</div>
+                    <div class="particle" style="animation-delay: 2.5s">💵</div>
                 </div>
             </div>
 
@@ -510,7 +508,7 @@
             <div class="card" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);">
                 <div class="card-label">Xiao.诗已获得</div>
                 <div class="card-amount" id="xiao-amount" style="color: #059669;">¥0.00</div>
-                <div class="card-sub" style="color: #059669; font-weight: 600;">+¥<span id="xiao-increase">0.00</span> 持续增加中</div>
+                <div class="card-sub" style="color: #059669;">达成目标即可获得</div>
             </div>
         </div>
 
@@ -565,14 +563,10 @@
         const TOTAL_DURATION = END_DATE - START_DATE;
         const RATE = TOTAL_AMOUNT / (TOTAL_DURATION / 1000);
 
-        let lastUpdate = 0;
-        let lastTransferred = 0;
+        let lastParticleUpdate = 0;
 
         function update() {
             const now = Date.now();
-
-            // 每秒更新一次显示
-            const shouldUpdateDisplay = now - lastUpdate >= 1000;
 
             // 计算进度（基于固定时间段）
             let elapsed = now - START_DATE;
@@ -591,38 +585,34 @@
             const currentAmount = Math.max(0, TOTAL_AMOUNT - RATE * (elapsed / 1000));
             const transferred = TOTAL_AMOUNT - currentAmount;
 
-            // 每秒更新显示，让变化更明显
-            if (shouldUpdateDisplay) {
-                const secondIncrease = transferred - lastTransferred;
+            // 毫秒级更新金额显示
+            document.getElementById('balance').textContent = '¥' + currentAmount.toFixed(6);
+            document.getElementById('burning').textContent = '-¥' + transferred.toFixed(6);
 
-                // 仑的剩余金额
-                document.getElementById('balance').textContent = '¥' + currentAmount.toFixed(2);
-                document.getElementById('burning').textContent = '-¥' + transferred.toFixed(2);
+            // Xiao.诗已获得的金额（毫秒级）
+            document.getElementById('xiao-amount').textContent = '¥' + transferred.toFixed(6);
 
-                // Xiao.诗已获得的金额
-                document.getElementById('xiao-amount').textContent = '¥' + transferred.toFixed(2);
-                document.getElementById('xiao-increase').textContent = secondIncrease.toFixed(2);
-
-                // 更新流动线进度
+            // 每秒更新一次动画效果
+            if (now - lastParticleUpdate >= 1000) {
                 document.getElementById('flow-progress').style.width = (progress * 100) + '%';
-
-                // 更新圆环进度（已转移）
-                const circumference = 376.99;
-                document.getElementById('ring').style.strokeDashoffset = circumference - (progress * circumference);
-                document.getElementById('percent').textContent = Math.floor(progress * 100) + '%';
-
-                // 更新时间圆环（剩余时间）
-                const timeCircumference = 263.89;
-                const timeProgress = remaining / TOTAL_DURATION;
-                document.getElementById('time-ring').style.strokeDashoffset = timeCircumference - (timeProgress * timeCircumference);
-                document.getElementById('days').textContent = Math.ceil(remaining / 86400000);
-
-                // 更新每秒流失
-                document.getElementById('rate').textContent = '¥' + RATE.toFixed(4);
-
-                lastUpdate = now;
-                lastTransferred = transferred;
+                lastParticleUpdate = now;
             }
+
+            // 毫秒级更新圆环进度（已转移）
+            const circumference = 376.99;
+            document.getElementById('ring').style.strokeDashoffset = circumference - (progress * circumference);
+            document.getElementById('percent').textContent = (progress * 100).toFixed(4) + '%';
+
+            // 毫秒级更新时间圆环（剩余时间）
+            const timeCircumference = 263.89;
+            const timeProgress = remaining / TOTAL_DURATION;
+            document.getElementById('time-ring').style.strokeDashoffset = timeCircumference - (timeProgress * timeCircumference);
+
+            // 显示带小数的天数
+            document.getElementById('days').textContent = (remaining / 86400000).toFixed(6);
+
+            // 更新每秒流失
+            document.getElementById('rate').textContent = '¥' + RATE.toFixed(6);
 
             requestAnimationFrame(update);
         }
