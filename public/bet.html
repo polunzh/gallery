@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .phone {
+            width: 375px;
+            background: #fafafa;
+            border-radius: 40px;
+            padding: 40px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+        }
+
+        /* Header */
+        .header-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        /* Challenge Banner */
+        .challenge-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+        }
+
+        .challenge-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trophy {
+            font-size: 24px;
+        }
+
+        .challenge-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .goal-badge {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Section Title */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #94a3b8;
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ef4444;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Flow Section - 两侧人物 */
+        .flow-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .person {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .avatar.lun {
+            background: #fef3c7;
+            border: 3px solid #f59e0b;
+        }
+
+        .avatar.xiao {
+            background: #d1fae5;
+            border: 3px solid #10b981;
+        }
+
+        .person-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        /* 流动线 */
+        .flow-line-container {
+            flex: 1;
+            height: 40px;
+            margin: 0 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .flow-line-bg {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+        }
+
+        .flow-line-progress {
+            position: absolute;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b, #10b981);
+            border-radius: 2px;
+            transition: width 0.1s linear;
+            overflow: hidden;
+        }
+
+        .flow-line-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shimmer 1s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* 流动的钱 - 增强流逝感 */
+        .flow-particles {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 40px;
+        }
+
+        .particle {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+            animation: flowRight 1s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes flowRight {
+            0% {
+                left: 0%;
+                opacity: 0;
+                transform: translateY(-50%) scale(0.6);
+            }
+            5% {
+                opacity: 1;
+                transform: translateY(-50%) scale(1.1);
+            }
+            15% {
+                transform: translateY(-50%) scale(1);
+            }
+            85% {
+                opacity: 1;
+            }
+            95% {
+                transform: translateY(-50%) scale(0.9);
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+                transform: translateY(-50%) scale(0.6);
+            }
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .card-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .card-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .flowing-number {
+            font-size: 13px;
+            color: #ef4444;
+            font-family: 'SF Mono', Monaco, monospace;
+            animation: flash 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes flash {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+
+        .card-sub {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .card.at-risk {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+        }
+
+        .card.at-risk .card-amount {
+            color: #ef4444;
+        }
+
+        .card.at-risk .card-sub {
+            color: #ef4444;
+        }
+
+        .change-negative {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ef4444;
+        }
+
+        /* Progress Ring */
+        .ring-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .ring-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+        }
+
+        .ring-container svg {
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg {
+            fill: none;
+            stroke: #e2e8f0;
+            stroke-width: 10;
+        }
+
+        .ring-progress {
+            fill: none;
+            stroke: url(#ringGradient);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        .ring-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .ring-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e293b;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .ring-label {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        /* Stats with Time Ring */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .time-ring-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .time-ring-container svg {
+            transform: rotate(-90deg);
+        }
+
+        .time-ring-bg {
+            fill: none;
+            stroke: #e2e8f0;
+            stroke-width: 6;
+        }
+
+        .time-ring-progress {
+            fill: none;
+            stroke: #3b82f6;
+            stroke-width: 6;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        .time-ring-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .time-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .time-label {
+            font-size: 10px;
+            color: #94a3b8;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .stat-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stat-icon {
+            font-size: 18px;
+        }
+
+        .stat-text {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .stat-text strong {
+            color: #1e293b;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#10b981"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <div class="phone">
+        <!-- Header -->
+        <div class="header-title">挑战追踪</div>
+
+        <!-- Challenge Banner -->
+        <div class="challenge-banner">
+            <div class="challenge-left">
+                <span class="trophy">🏆</span>
+                <span class="challenge-text">30天减重挑战</span>
+            </div>
+            <div class="goal-badge">目标: 50kg</div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <div class="section-title">资金监控</div>
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                <span>实时</span>
+            </div>
+        </div>
+
+        <!-- Flow Section - 仑 to Xiao.诗 -->
+        <div class="flow-section">
+            <div class="person">
+                <div class="avatar lun">🛞</div>
+                <div class="person-name">仑</div>
+            </div>
+
+            <div class="flow-line-container">
+                <div class="flow-line-bg"></div>
+                <div class="flow-line-progress" id="flow-progress" style="width: 0%"></div>
+                <div class="flow-particles">
+                    <div class="particle" style="animation-delay: 0s">💰</div>
+                    <div class="particle" style="animation-delay: 0.15s">💵</div>
+                    <div class="particle" style="animation-delay: 0.3s">💰</div>
+                    <div class="particle" style="animation-delay: 0.45s">💵</div>
+                    <div class="particle" style="animation-delay: 0.6s">💰</div>
+                    <div class="particle" style="animation-delay: 0.75s">💵</div>
+                    <div class="particle" style="animation-delay: 0.9s">💰</div>
+                    <div class="particle" style="animation-delay: 1.05s">💵</div>
+                </div>
+            </div>
+
+            <div class="person">
+                <div class="avatar xiao">👱‍♀️</div>
+                <div class="person-name">Xiao.诗</div>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="cards">
+            <div class="card">
+                <div class="card-label">仑剩余金额</div>
+                <div class="card-amount" id="balance">¥1,024.00</div>
+                <div class="flowing-number" id="burning">-¥0.00</div>
+            </div>
+            <div class="card" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);">
+                <div class="card-label">Xiao.诗已获得</div>
+                <div class="card-amount" id="xiao-amount" style="color: #059669;">¥0.00</div>
+                <div class="card-sub" style="color: #059669; font-weight: 600;">+¥<span id="xiao-increase">0.00</span> 持续增加中</div>
+            </div>
+        </div>
+
+        <!-- Progress Ring -->
+        <div class="ring-section">
+            <div class="ring-container">
+                <svg width="140" height="140" viewBox="0 0 140 140">
+                    <circle class="ring-bg" cx="70" cy="70" r="60"/>
+                    <circle class="ring-progress" id="ring" cx="70" cy="70" r="60"
+                            stroke-dasharray="376.99" stroke-dashoffset="376.99"/>
+                </svg>
+                <div class="ring-inner">
+                    <div class="ring-value" id="percent">0%</div>
+                    <div class="ring-label">已转移</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats with Time Ring -->
+        <div class="stats">
+            <div class="time-ring-container">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <circle class="time-ring-bg" cx="50" cy="50" r="42"/>
+                    <circle class="time-ring-progress" id="time-ring" cx="50" cy="50" r="42"
+                            stroke-dasharray="263.89" stroke-dashoffset="0"/>
+                </svg>
+                <div class="time-ring-inner">
+                    <div class="time-value" id="days">--</div>
+                    <div class="time-label">天剩余</div>
+                </div>
+            </div>
+
+            <div class="stat-info">
+                <div class="stat-row">
+                    <span class="stat-icon">⚡</span>
+                    <span class="stat-text">每秒流失 <strong id="rate">¥0.00</strong></span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-icon">📅</span>
+                    <span class="stat-text">截止 <strong>5月8日 08:00</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 固定时间段: 2026-04-08 00:00:00 - 2026-05-08 08:00:00
+        const START_DATE = new Date('2026-04-08T00:00:00+08:00');
+        const END_DATE = new Date('2026-05-08T08:00:00+08:00');
+        const TOTAL_AMOUNT = 1024;
+
+        const TOTAL_DURATION = END_DATE - START_DATE;
+        const RATE = TOTAL_AMOUNT / (TOTAL_DURATION / 1000);
+
+        let lastUpdate = 0;
+        let lastTransferred = 0;
+
+        function update() {
+            const now = Date.now();
+
+            // 每秒更新一次显示
+            const shouldUpdateDisplay = now - lastUpdate >= 1000;
+
+            // 计算进度（基于固定时间段）
+            let elapsed = now - START_DATE;
+            let progress = elapsed / TOTAL_DURATION;
+
+            // 限制在 0-1 范围内
+            if (progress < 0) {
+                progress = 0;
+                elapsed = 0;
+            } else if (progress > 1) {
+                progress = 1;
+                elapsed = TOTAL_DURATION;
+            }
+
+            const remaining = Math.max(0, END_DATE - now);
+            const currentAmount = Math.max(0, TOTAL_AMOUNT - RATE * (elapsed / 1000));
+            const transferred = TOTAL_AMOUNT - currentAmount;
+
+            // 每秒更新显示，让变化更明显
+            if (shouldUpdateDisplay) {
+                const secondIncrease = transferred - lastTransferred;
+
+                // 仑的剩余金额
+                document.getElementById('balance').textContent = '¥' + currentAmount.toFixed(2);
+                document.getElementById('burning').textContent = '-¥' + transferred.toFixed(2);
+
+                // Xiao.诗已获得的金额
+                document.getElementById('xiao-amount').textContent = '¥' + transferred.toFixed(2);
+                document.getElementById('xiao-increase').textContent = secondIncrease.toFixed(2);
+
+                // 更新流动线进度
+                document.getElementById('flow-progress').style.width = (progress * 100) + '%';
+
+                // 更新圆环进度（已转移）
+                const circumference = 376.99;
+                document.getElementById('ring').style.strokeDashoffset = circumference - (progress * circumference);
+                document.getElementById('percent').textContent = Math.floor(progress * 100) + '%';
+
+                // 更新时间圆环（剩余时间）
+                const timeCircumference = 263.89;
+                const timeProgress = remaining / TOTAL_DURATION;
+                document.getElementById('time-ring').style.strokeDashoffset = timeCircumference - (timeProgress * timeCircumference);
+                document.getElementById('days').textContent = Math.ceil(remaining / 86400000);
+
+                // 更新每秒流失
+                document.getElementById('rate').textContent = '¥' + RATE.toFixed(4);
+
+                lastUpdate = now;
+                lastTransferred = transferred;
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    </script>
+</body>
+</html>
