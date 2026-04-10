@@ -278,7 +278,7 @@
             to { opacity: 1; }
         }
 
-        /* 流动的钱 - 增强流逝感 */
+        /* 流动的钱 - 飞向目标的弧线动画 */
         .flow-particles {
             position: absolute;
             left: 0;
@@ -290,40 +290,46 @@
 
         .particle {
             position: absolute;
+            left: 0;
             top: 50%;
             margin-top: -12px;
             font-size: 22px;
             line-height: 1;
             text-shadow: 0 2px 4px rgba(0,0,0,0.15);
-            animation: flowRight 3s linear infinite;
+            animation: flyToTarget 2.5s ease-out infinite;
             opacity: 0;
             height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
+            will-change: transform, opacity;
         }
 
-        @keyframes flowRight {
+        @keyframes flyToTarget {
             0% {
-                transform: translateX(-100%) scale(0.6);
+                transform: translateX(0) translateY(0) scale(0.5) rotate(-20deg);
                 opacity: 0;
             }
-            5% {
+            10% {
                 opacity: 1;
-                transform: translateX(-95%) scale(1.1);
+                transform: translateX(10%) translateY(-15px) scale(1.2) rotate(-10deg);
             }
-            15% {
-                transform: translateX(-85%) scale(1);
+            25% {
+                transform: translateX(30%) translateY(-25px) scale(1.1) rotate(0deg);
             }
-            85% {
+            50% {
+                transform: translateX(55%) translateY(-15px) scale(1.05) rotate(5deg);
+            }
+            75% {
+                transform: translateX(80%) translateY(-5px) scale(1) rotate(10deg);
                 opacity: 1;
-                transform: translateX(85%) scale(1);
             }
-            95% {
-                transform: translateX(95%) scale(0.9);
+            90% {
+                opacity: 0.8;
+                transform: translateX(95%) translateY(0) scale(0.9) rotate(15deg);
             }
             100% {
-                transform: translateX(100%) scale(0.6);
+                transform: translateX(100%) translateY(0) scale(0.6) rotate(20deg);
                 opacity: 0;
             }
         }
@@ -690,10 +696,11 @@
 
         function formatMoney(amount) {
             const intPart = Math.floor(amount);
-            const decPart = Math.floor((amount % 1) * 100);
+            // 使用4位小数以便每毫秒都能看到变化
+            const decPart = Math.floor((amount % 1) * 10000);
             return {
                 int: intPart.toLocaleString(),
-                dec: decPart.toString().padStart(2, '0'),
+                dec: decPart.toString().padStart(4, '0'),
                 full: '¥' + amount.toFixed(6)
             };
         }
@@ -701,8 +708,8 @@
         function update() {
             const now = Date.now();
 
-            // 节流：每100ms更新一次（约10fps，足够看到数字变化）
-            if (now - lastUpdate < 100) {
+            // 每16ms更新一次（约60fps），让数字变化更流畅
+            if (now - lastUpdate < 16) {
                 requestAnimationFrame(update);
                 return;
             }
@@ -745,7 +752,7 @@
 
             // 更新圆环进度（已转移）
             dom.ring.style.strokeDashoffset = RING_CIRCUMFERENCE - (progress * RING_CIRCUMFERENCE);
-            dom.percent.textContent = Math.floor(progress * 100) + '%';
+            dom.percent.textContent = (progress * 100).toFixed(4) + '%';
 
             // 更新剩余天数 - 显示1位小数
             dom.days.textContent = (remaining / 86400000).toFixed(1);
