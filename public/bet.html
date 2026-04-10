@@ -232,8 +232,8 @@
         /* 抛物线飞行容器 */
         .parabolic-flight {
             flex: 1;
-            height: 100px;
-            margin: 0;
+            height: 80px;
+            margin: 0 10px;
             position: relative;
             pointer-events: none;
         }
@@ -241,39 +241,39 @@
         .flying-money {
             position: absolute;
             left: 0;
-            bottom: 30%;
-            font-size: 26px;
-            animation: parabolicThrow 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            bottom: 10px;
+            font-size: 28px;
             opacity: 0;
             will-change: transform, opacity;
-            filter: drop-shadow(0 4px 8px rgba(245, 158, 11, 0.4));
+            filter: drop-shadow(0 4px 8px rgba(245, 158, 11, 0.5));
         }
 
-        @keyframes parabolicThrow {
+        .flying-money.animate {
+            animation: coinToss 1.2s ease-out forwards;
+        }
+
+        @keyframes coinToss {
             0% {
-                transform: translateX(0) translateY(0) scale(0.5) rotate(-15deg);
+                transform: translateX(0) translateY(0) scale(0.6) rotate(-20deg);
                 opacity: 0;
             }
-            8% {
+            10% {
                 opacity: 1;
-                transform: translateX(15%) translateY(-45px) scale(1.1) rotate(-5deg);
+                transform: translateX(10%) translateY(-35px) scale(1.15) rotate(-10deg);
             }
-            30% {
-                transform: translateX(40%) translateY(-60px) scale(1.05) rotate(5deg);
-            }
-            50% {
-                transform: translateX(60%) translateY(-45px) scale(1) rotate(10deg);
+            40% {
+                transform: translateX(45%) translateY(-55px) scale(1.1) rotate(0deg);
             }
             70% {
-                transform: translateX(80%) translateY(-20px) scale(0.95) rotate(15deg);
+                transform: translateX(80%) translateY(-25px) scale(1.05) rotate(10deg);
                 opacity: 1;
             }
-            85% {
-                transform: translateX(95%) translateY(-5px) scale(0.85) rotate(20deg);
-                opacity: 0.7;
+            90% {
+                transform: translateX(100%) translateY(0) scale(0.9) rotate(15deg);
+                opacity: 1;
             }
             100% {
-                transform: translateX(110%) translateY(0) scale(0.6) rotate(25deg);
+                transform: translateX(105%) translateY(5px) scale(0.7) rotate(20deg);
                 opacity: 0;
             }
         }
@@ -528,12 +528,7 @@
             </div>
 
             <div class="parabolic-flight">
-                <div class="flying-money" style="animation-delay: 0s">💰</div>
-                <div class="flying-money" style="animation-delay: 0.4s">💰</div>
-                <div class="flying-money" style="animation-delay: 0.8s">💰</div>
-                <div class="flying-money" style="animation-delay: 1.2s">💰</div>
-                <div class="flying-money" style="animation-delay: 1.6s">💰</div>
-                <div class="flying-money" style="animation-delay: 2.0s">💰</div>
+                <div class="flying-money" id="flying-coin">💰</div>
             </div>
 
             <div class="person">
@@ -627,8 +622,30 @@
             ring: document.getElementById('ring'),
             percent: document.getElementById('percent'),
             days: document.getElementById('days'),
-            rate: document.getElementById('rate')
+            rate: document.getElementById('rate'),
+            flyingCoin: document.getElementById('flying-coin')
         };
+
+        // 控制💰一个一个飞
+        function tossCoin() {
+            const coin = dom.flyingCoin;
+            if (!coin) return;
+
+            // 移除动画类重置
+            coin.classList.remove('animate');
+
+            // 强制重绘
+            void coin.offsetWidth;
+
+            // 添加动画类
+            coin.classList.add('animate');
+
+            // 动画结束后1秒再飞下一个
+            setTimeout(tossCoin, 2000);
+        }
+
+        // 启动投掷动画
+        setTimeout(tossCoin, 500);
 
         const RING_CIRCUMFERENCE = 326.73;
         let lastUpdate = 0;
