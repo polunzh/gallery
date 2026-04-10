@@ -5,610 +5,461 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>50kg or ¥0</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
-
-        :root {
-            /* 主色调 */
-            --color-primary: #e11d48;
-            --color-primary-dark: #be123c;
-            --color-primary-light: #fecdd3;
-
-            /* 功能色 */
-            --color-success: #10b981;
-            --color-success-light: #d1fae5;
-            --color-warning: #f59e0b;
-            --color-warning-light: #fef3c7;
-
-            /* 中性色 */
-            --color-bg-dark: #1a1a2e;
-            --color-bg-mid: #16213e;
-            --color-bg-light: #f8fafc;
-            --color-surface: rgba(255, 255, 255, 0.95);
-
-            /* 文字色 */
-            --color-text-primary: #1e293b;
-            --color-text-secondary: #64748b;
-            --color-text-muted: #94a3b8;
-            --color-text-inverse: #ffffff;
-
-            /* 边框 */
-            --color-border: #e2e8f0;
-            --color-border-light: #f1f5f9;
-
-            /* 阴影 */
-            --shadow-card: 0 32px 64px -16px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1) inset;
-            --shadow-banner: 0 4px 12px rgba(225, 29, 72, 0.3);
-
-            /* 间距 */
-            --space-xs: 4px;
-            --space-sm: 8px;
-            --space-md: 16px;
-            --space-lg: 24px;
-            --space-xl: 32px;
-
-            /* 圆角 */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
-
-            /* 字体 */
-            --font-sans: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-
-            /* 动画 */
-            --transition-fast: 0.15s ease;
-            --transition-normal: 0.3s ease;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* 焦点指示器 */
+        :root {
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
+            --pure-black: #000000;
+            --light-gray: #f5f5f7;
+            --near-black: #1d1d1f;
+            --white: #ffffff;
+            --text-secondary: rgba(0, 0, 0, 0.8);
+            --text-tertiary: rgba(0, 0, 0, 0.48);
+        }
+
         *:focus-visible {
-            outline: 3px solid var(--color-primary);
+            outline: 2px solid var(--apple-blue);
             outline-offset: 2px;
         }
 
         body {
-            font-family: var(--font-sans);
-            background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-mid) 50%, #0f3460 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: var(--pure-black);
+            color: var(--white);
+            line-height: 1.47;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Hero Section - Dark */
+        .hero {
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .phone {
-            width: min(100%, 400px);
-            max-width: 100%;
-            background: var(--color-surface);
-            border-radius: var(--radius-xl);
-            padding: var(--space-xl) clamp(16px, 5vw, 24px);
-            box-shadow: var(--shadow-card);
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header-title {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-md);
-            text-align: center;
-        }
-
-        /* Challenge Banner */
-        .challenge-banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-            border-radius: var(--radius-md);
-            padding: 14px 18px;
-            margin-bottom: var(--space-lg);
-            box-shadow: var(--shadow-banner);
-        }
-
-        .challenge-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .trophy {
-            font-size: 24px;
-        }
-
-        .challenge-text {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--color-text-inverse);
-        }
-
-        .goal-badge {
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.9);
-        }
-
-        /* Section Title */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px dashed var(--color-border);
-        }
-
-        .section-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--color-text-primary);
-        }
-
-        .live-badge {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--color-primary);
-            background: var(--color-primary-light);
-            padding: 4px 10px;
-            border-radius: 20px;
-        }
-
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background: #ef4444;
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        /* 无障碍：尊重用户动画偏好 */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Flow Section - 两侧人物 */
-        .flow-section {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            position: relative;
-            padding-bottom: 20px;
-        }
-
-        .person {
-            text-align: center;
-            z-index: 2;
-        }
-
-        .avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 8px;
-            position: relative;
-        }
-
-        .avatar.lun {
-            background: var(--color-warning-light);
-            border: 3px solid var(--color-warning);
-        }
-
-        .avatar.xiao {
-            background: var(--color-success-light);
-            border: 3px solid var(--color-success);
-        }
-
-        .person-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--color-text-secondary);
-        }
-
-        /* 飞行动画 - 从仑飞到Xiao.诗 */
-        .flow-section {
-            position: relative;
-        }
-
-        .flying-coin {
-            position: absolute;
-            left: 30px;
-            bottom: 50px;
-            font-size: 28px;
-            opacity: 0;
-            will-change: transform, opacity;
-            filter: drop-shadow(0 4px 8px rgba(245, 158, 11, 0.5));
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .flying-coin.animate {
-            animation: flyToTarget 2.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-        }
-
-        @keyframes flyToTarget {
-            0% {
-                transform: translate3d(0, 0, 0) scale(0.6) rotate(-30deg);
-                opacity: 0;
-            }
-            5% {
-                opacity: 1;
-                transform: translate3d(20px, -30px, 0) scale(1.15) rotate(-15deg);
-            }
-            25% {
-                transform: translate3d(80px, -50px, 0) scale(1.12) rotate(-5deg);
-            }
-            50% {
-                transform: translate3d(150px, -55px, 0) scale(1.1) rotate(5deg);
-            }
-            75% {
-                transform: translate3d(220px, -30px, 0) scale(1.05) rotate(12deg);
-                opacity: 1;
-            }
-            95% {
-                transform: translate3d(270px, 0, 0) scale(1) rotate(18deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translate3d(280px, 5px, 0) scale(0.9) rotate(20deg);
-                opacity: 0;
-            }
-        }
-
-        .coin-target {
-            position: absolute;
-            right: 18px;
-            top: 18px;
-            width: 24px;
-            height: 24px;
-            pointer-events: none;
-        }
-
-        /* Cards - 主卡片更突出 */
-        .cards {
-            display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: var(--space-lg);
-        }
-
-        .card {
-            background: linear-gradient(135deg, var(--color-bg-light) 0%, var(--color-border-light) 100%);
-            border-radius: var(--radius-lg);
-            padding: 24px 20px;
-            border: 1px solid var(--color-border);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 48px 24px;
             position: relative;
             overflow: hidden;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--color-warning), var(--color-primary));
+        .hero-badge {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--apple-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
         }
 
-        .card.primary {
-            background: linear-gradient(135deg, var(--color-warning-light) 0%, #fde68a 100%);
-            border: 2px solid var(--color-warning);
-        }
-
-        .card.primary::before {
-            background: var(--color-warning);
-        }
-
-        .card.secondary {
-            background: linear-gradient(135deg, var(--color-success-light) 0%, #a7f3d0 100%);
-            border: 2px solid var(--color-success);
-        }
-
-        .card.secondary::before {
-            background: var(--color-success);
-        }
-
-        .card-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-sm);
-        }
-
-        .card-amount {
-            font-size: 36px;
-            font-weight: 900;
-            color: var(--color-text-primary);
-            font-variant-numeric: tabular-nums;
-            margin-bottom: var(--space-sm);
-            font-family: var(--font-mono);
+        .hero-title {
+            font-size: clamp(48px, 10vw, 80px);
+            font-weight: 600;
+            line-height: 1.07;
             letter-spacing: -0.02em;
-        }
-
-        .card-amount .decimal {
-            font-size: 24px;
-            color: var(--color-text-muted);
-            font-weight: 500;
-        }
-
-        .card-amount.precise {
-            font-size: 14px;
-            color: var(--color-text-secondary);
-            font-weight: 500;
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-        }
-
-        .card:hover .card-amount.precise {
-            opacity: 1;
-        }
-
-        .flowing-number {
-            font-size: 14px;
-            color: var(--color-primary);
-            font-family: var(--font-mono);
-            font-weight: 500;
-        }
-
-        .card-sub {
-            font-size: 13px;
-            color: var(--color-success);
-            font-weight: 500;
-        }
-
-        /* Progress Ring - 更简洁 */
-        .ring-section {
-            display: flex;
-            justify-content: center;
             margin-bottom: 20px;
         }
 
-        .ring-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
+        .hero-subtitle {
+            font-size: clamp(21px, 4vw, 28px);
+            font-weight: 400;
+            line-height: 1.14;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
         }
 
-        .ring-container svg {
-            transform: rotate(-90deg);
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .ring-bg {
-            fill: none;
-            stroke: #e2e8f0;
-            stroke-width: 8;
+        .cta-primary {
+            background: var(--apple-blue);
+            color: var(--white);
+            font-size: 17px;
+            font-weight: 400;
+            padding: 12px 24px;
+            border-radius: 980px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
-        .ring-progress {
-            fill: none;
-            stroke: url(#ringGradient);
-            stroke-width: 8;
-            stroke-linecap: round;
-            transition: stroke-dashoffset 0.1s linear;
+        .cta-primary:hover {
+            background: var(--apple-blue-hover);
         }
 
-        .ring-inner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .cta-secondary {
+            background: transparent;
+            color: var(--apple-blue);
+            font-size: 17px;
+            font-weight: 400;
+            padding: 12px 24px;
+            border-radius: 980px;
+            text-decoration: none;
+            border: 1px solid var(--apple-blue);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-secondary:hover {
+            background: var(--apple-blue);
+            color: var(--white);
+        }
+
+        /* Data Section - Light */
+        .data-section {
+            background: var(--light-gray);
+            color: var(--near-black);
+            padding: 120px 24px;
             text-align: center;
         }
 
-        .ring-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1e293b;
+        .section-badge {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 60px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .data-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 32px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .data-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .data-value {
+            font-size: clamp(36px, 5vw, 48px);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
             font-variant-numeric: tabular-nums;
-            font-family: 'JetBrains Mono', monospace;
         }
 
-        .ring-label {
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 2px;
+        .data-value.precise {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            margin-top: 4px;
         }
 
-        /* Stats - 更紧凑 */
-        .stats {
+        .data-card.lun .data-value {
+            color: var(--near-black);
+        }
+
+        .data-card.xiao .data-value {
+            color: var(--apple-blue);
+        }
+
+        /* Flow Animation Section */
+        .flow-section {
+            background: var(--pure-black);
+            color: var(--white);
+            padding: 100px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flow-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            height: 200px;
+        }
+
+        .flow-avatars {
             display: flex;
             justify-content: space-between;
-            gap: 16px;
-            padding: 20px;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        .stat-block {
+        .flow-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        .flow-avatar.lun {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .flow-avatar.xiao {
+            border: 2px solid var(--apple-blue);
+        }
+
+        .flying-coin {
+            position: absolute;
+            font-size: 32px;
+            left: 24px;
+            top: 50%;
+            margin-top: -16px;
+            opacity: 0;
+            filter: drop-shadow(0 4px 12px rgba(0, 113, 227, 0.5));
+            will-change: transform, opacity;
+        }
+
+        .flying-coin.animate {
+            animation: flyToTarget 2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+
+        @keyframes flyToTarget {
+            0% {
+                transform: translate3d(0, 0, 0) scale(0.5) rotate(-20deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translate3d(40px, -60px, 0) scale(1.2) rotate(-10deg);
+            }
+            40% {
+                transform: translate3d(180px, -90px, 0) scale(1.15) rotate(0deg);
+            }
+            70% {
+                transform: translate3d(380px, -50px, 0) scale(1.1) rotate(10deg);
+            }
+            90% {
+                transform: translate3d(480px, 0, 0) scale(1) rotate(15deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(520px, 10px, 0) scale(0.8) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        .flow-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 120px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .flow-label {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--light-gray);
+            color: var(--near-black);
+            padding: 80px 24px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 700px;
+            margin: 0 auto;
             text-align: center;
-            flex: 1;
+        }
+
+        .stat-item {
+            padding: 20px;
         }
 
         .stat-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1e293b;
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 4px;
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--near-black);
+            margin-bottom: 8px;
+            font-variant-numeric: tabular-nums;
         }
 
         .stat-label {
-            font-size: 11px;
-            color: #64748b;
+            font-size: 14px;
+            color: var(--text-tertiary);
         }
 
-        .stat-divider {
-            width: 1px;
-            background: #e2e8f0;
+        /* Rules Section */
+        .rules-section {
+            background: var(--pure-black);
+            color: var(--white);
+            padding: 120px 24px;
+            text-align: center;
         }
 
-        /* Story Context */
-        .story-context {
-            margin-top: 20px;
-            padding: 16px;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-radius: 12px;
-            border-left: 4px solid #f59e0b;
+        .rules-content {
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .story-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #92400e;
-            margin-bottom: 8px;
+        .rules-text {
+            font-size: 21px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .story-text {
-            font-size: 12px;
-            color: #78350f;
-            line-height: 1.6;
+        .rules-text strong {
+            color: var(--white);
+            font-weight: 600;
         }
 
-        .story-highlight {
-            font-weight: 700;
-            color: #92400e;
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 32px 20px;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .flow-container {
+                transform: scale(0.85);
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .flying-coin {
+                animation: none !important;
+            }
         }
     </style>
 </head>
 <body>
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-        <defs>
-            <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#f59e0b"/>
-                <stop offset="100%" stop-color="#10b981"/>
-            </linearGradient>
-        </defs>
-    </svg>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">Live Challenge</div>
+        <h1 class="hero-title">50kg or ¥0</h1>
+        <p class="hero-subtitle">一场关于体重与赌注的约定。每一秒，都在倒计时。</p>
+        <div class="hero-cta">
+            <button class="cta-primary" onclick="document.getElementById('data').scrollIntoView({behavior: 'smooth'})">查看实时数据</button>
+            <button class="cta-secondary" onclick="document.getElementById('rules').scrollIntoView({behavior: 'smooth'})">了解规则</button>
+        </div>
+    </section>
 
-    <main class="phone" role="main" aria-label="减肥挑战赌注追踪">
-        <!-- Header -->
-        <header>
-            <h1 class="header-title">挑战追踪</h1>
-        </header>
-
-        <!-- Challenge Banner -->
-        <section class="challenge-banner" aria-label="挑战目标">
-            <div class="challenge-left">
-                <span class="trophy">🏆</span>
-                <span class="challenge-text">30天减重挑战</span>
+    <!-- Data Section -->
+    <section class="data-section" id="data">
+        <div class="section-badge">Real-time</div>
+        <h2 class="section-title">资金实时流动</h2>
+        <div class="data-grid">
+            <div class="data-card lun">
+                <div class="data-label">仑的剩余赌注</div>
+                <div class="data-value" id="balance">¥1,024</div>
+                <div class="data-value precise" id="balance-precise">¥1,024.000000</div>
             </div>
-            <div class="goal-badge">目标: 50kg</div>
-        </section>
-
-        <!-- Section Header -->
-        <section class="section-header" aria-label="资金监控状态">
-            <div class="section-title">资金监控</div>
-            <div class="live-badge">
-                <span class="live-dot"></span>
-                <span>实时</span>
+            <div class="data-card xiao">
+                <div class="data-label">Xiao.诗的目标奖金</div>
+                <div class="data-value" id="xiao">¥0</div>
+                <div class="data-value precise" id="xiao-precise">¥0.000000</div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Flow Section - 仑 to Xiao.诗 -->
-        <section class="flow-section" aria-label="资金流向">
-            <div class="person">
-                <div class="avatar lun">🛞</div>
-                <div class="person-name">仑</div>
+    <!-- Flow Animation Section -->
+    <section class="flow-section">
+        <div class="section-badge">Visualized</div>
+        <h2 class="section-title">资金的旅程</h2>
+        <div class="flow-container">
+            <div class="flow-avatars">
+                <div class="flow-avatar lun">🛞</div>
+                <div class="flow-avatar xiao">👱‍♀️</div>
             </div>
-
-            <div class="person target-person">
-                <div class="avatar xiao">👱‍♀️</div>
-                <div class="person-name">Xiao.诗</div>
-                <div class="coin-target" id="coin-target"></div>
-            </div>
-
             <div class="flying-coin" id="flying-coin">💰</div>
-        </section>
+        </div>
+        <div class="flow-labels">
+            <div class="flow-label">仑</div>
+            <div class="flow-label">Xiao.诗</div>
+        </div>
+    </section>
 
-        <!-- Cards -->
-        <section class="cards" aria-label="金额统计">
-            <div class="card primary">
-                <div class="card-label">💰 仑的赌注余额</div>
-                <div class="card-amount">
-                    ¥<span id="balance-int">1,024</span><span class="decimal">.<span id="balance-dec">00</span></span>
-                </div>
-                <div class="card-amount precise" id="balance-precise">¥1,024.000000</div>
-                <div class="flowing-number">已流失 <span id="burning">¥0.00</span></div>
-            </div>
-            <div class="card secondary">
-                <div class="card-label">🏆 Xiao.诗的目标奖金</div>
-                <div class="card-amount" style="color: #059669;">
-                    ¥<span id="xiao-int">0</span><span class="decimal">.<span id="xiao-dec">00</span></span>
-                </div>
-                <div class="card-amount precise" id="xiao-precise" style="color: #059669;">¥0.000000</div>
-                <div class="card-sub">减到50kg即可全额获得</div>
-            </div>
-        </section>
-
-        <!-- Progress Ring -->
-        <section class="ring-section" aria-label="进度指示">
-            <div class="ring-container">
-                <svg width="120" height="120" viewBox="0 0 120 120">
-                    <circle class="ring-bg" cx="60" cy="60" r="52"/>
-                    <circle class="ring-progress" id="ring" cx="60" cy="60" r="52"
-                            stroke-dasharray="326.73" stroke-dashoffset="326.73"/>
-                </svg>
-                <div class="ring-inner">
-                    <div class="ring-value" id="percent">0%</div>
-                    <div class="ring-label">资金已转移</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats -->
-        <section class="stats" aria-label="统计数据">
-            <div class="stat-block">
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
                 <div class="stat-value" id="days">--</div>
                 <div class="stat-label">天剩余</div>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-block">
-                <div class="stat-value" id="rate">¥0.00</div>
+            <div class="stat-item">
+                <div class="stat-value" id="percent">0%</div>
+                <div class="stat-label">已转移</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="rate">¥0</div>
                 <div class="stat-label">每秒流失</div>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-block">
-                <div class="stat-value">5/8</div>
-                <div class="stat-label">截止日</div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Story Context -->
-        <section class="story-context" aria-label="挑战规则说明">
-            <h2 class="story-title">🏋️ 挑战规则</h2>
-            <p class="story-text">
-                Xiao.诗需要在 <span class="story-highlight">2026年5月8日早8点</span> 前减重至 <span class="story-highlight">50kg</span>。
-                每过一秒，仑的¥1024赌注就流逝一部分到Xiao.诗的奖金池。
+    <!-- Rules Section -->
+    <section class="rules-section" id="rules">
+        <div class="section-badge">How it works</div>
+        <h2 class="section-title">挑战规则</h2>
+        <div class="rules-content">
+            <p class="rules-text">
+                Xiao.诗需要在 <strong>2026年5月8日早8点</strong> 前减重至 <strong>50kg</strong>。
+                每过一秒，仑的 ¥1024 赌注就流逝一部分到 Xiao.诗的奖金池。
                 如果目标达成，Xiao.诗获得全部奖金；如果失败，剩余金额归还仑。
             </p>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <script>
         // 固定时间段: 2026-04-08 00:00:00 - 2026-05-08 08:00:00
@@ -619,62 +470,25 @@
         const TOTAL_DURATION = END_DATE - START_DATE;
         const RATE = TOTAL_AMOUNT / (TOTAL_DURATION / 1000);
 
-        // 缓存DOM引用
+        // DOM 元素
         const dom = {
-            balanceInt: document.getElementById('balance-int'),
-            balanceDec: document.getElementById('balance-dec'),
+            balance: document.getElementById('balance'),
             balancePrecise: document.getElementById('balance-precise'),
-            xiaoInt: document.getElementById('xiao-int'),
-            xiaoDec: document.getElementById('xiao-dec'),
+            xiao: document.getElementById('xiao'),
             xiaoPrecise: document.getElementById('xiao-precise'),
-            burning: document.getElementById('burning'),
-            ring: document.getElementById('ring'),
-            percent: document.getElementById('percent'),
             days: document.getElementById('days'),
-            rate: document.getElementById('rate')
+            percent: document.getElementById('percent'),
+            rate: document.getElementById('rate'),
+            flyingCoin: document.getElementById('flying-coin')
         };
 
-        // 控制💰一个一个飞向目标
-        const flyingCoin = document.getElementById('flying-coin');
-        let isAnimating = false;
-
-        function startNextCoin() {
-            if (!flyingCoin || isAnimating) return;
-            isAnimating = true;
-
-            // 先确保移除动画类
-            flyingCoin.classList.remove('animate');
-
-            // 使用 requestAnimationFrame 确保浏览器已经重绘
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    flyingCoin.classList.add('animate');
-                });
-            });
-        }
-
-        // 监听动画结束事件
-        if (flyingCoin) {
-            flyingCoin.addEventListener('animationend', () => {
-                flyingCoin.classList.remove('animate');
-                isAnimating = false;
-                // 等待 0.8秒 后开始下一次
-                setTimeout(startNextCoin, 800);
-            });
-        }
-
-        // 启动第一次
-        setTimeout(startNextCoin, 500);
-
-        const RING_CIRCUMFERENCE = 326.73;
         let lastUpdate = 0;
 
         function formatMoney(amount) {
             const intPart = Math.floor(amount);
-            // 使用4位小数以便每毫秒都能看到变化
             const decPart = Math.floor((amount % 1) * 10000);
             return {
-                int: intPart.toLocaleString(),
+                int: '¥' + intPart.toLocaleString(),
                 dec: decPart.toString().padStart(4, '0'),
                 full: '¥' + amount.toFixed(6)
             };
@@ -683,18 +497,15 @@
         function update() {
             const now = Date.now();
 
-            // 每16ms更新一次（约60fps），让数字变化更流畅
             if (now - lastUpdate < 16) {
                 requestAnimationFrame(update);
                 return;
             }
             lastUpdate = now;
 
-            // 计算进度（基于固定时间段）
             let elapsed = now - START_DATE;
             let progress = elapsed / TOTAL_DURATION;
 
-            // 限制在 0-1 范围内
             if (progress < 0) {
                 progress = 0;
                 elapsed = 0;
@@ -707,37 +518,52 @@
             const currentAmount = Math.max(0, TOTAL_AMOUNT - RATE * (elapsed / 1000));
             const transferred = TOTAL_AMOUNT - currentAmount;
 
-            // 更新仑的余额 - 主显示2位小数，精确值6位
+            // 更新显示
             const balanceFormatted = formatMoney(currentAmount);
-            dom.balanceInt.textContent = balanceFormatted.int;
-            dom.balanceDec.textContent = balanceFormatted.dec;
+            dom.balance.textContent = balanceFormatted.int;
             dom.balancePrecise.textContent = balanceFormatted.full;
 
-            // 更新Xiao.诗的奖金
             const xiaoFormatted = formatMoney(transferred);
-            dom.xiaoInt.textContent = xiaoFormatted.int;
-            dom.xiaoDec.textContent = xiaoFormatted.dec;
+            dom.xiao.textContent = xiaoFormatted.int;
             dom.xiaoPrecise.textContent = xiaoFormatted.full;
 
-            // 更新已流失金额
-            dom.burning.textContent = '¥' + transferred.toFixed(2);
-
-            // 更新圆环进度（已转移）
-            dom.ring.style.strokeDashoffset = RING_CIRCUMFERENCE - (progress * RING_CIRCUMFERENCE);
-            dom.percent.textContent = (progress * 100).toFixed(4) + '%';
-
-            // 更新剩余天数 - 显示1位小数
             dom.days.textContent = (remaining / 86400000).toFixed(1);
+            dom.percent.textContent = (progress * 100).toFixed(2) + '%';
 
-            // 更新每秒流失（只需更新一次，因为是常量）
-            if (dom.rate.textContent === '¥0.00') {
+            if (dom.rate.textContent === '¥0') {
                 dom.rate.textContent = '¥' + RATE.toFixed(4);
             }
 
             requestAnimationFrame(update);
         }
 
+        // 飞行动画控制
+        let isAnimating = false;
+
+        function startCoinAnimation() {
+            if (!dom.flyingCoin || isAnimating) return;
+            isAnimating = true;
+
+            dom.flyingCoin.classList.remove('animate');
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    dom.flyingCoin.classList.add('animate');
+                });
+            });
+        }
+
+        if (dom.flyingCoin) {
+            dom.flyingCoin.addEventListener('animationend', () => {
+                dom.flyingCoin.classList.remove('animate');
+                isAnimating = false;
+                setTimeout(startCoinAnimation, 1500);
+            });
+        }
+
+        // 启动
         update();
+        setTimeout(startCoinAnimation, 1000);
     </script>
 </body>
 </html>
