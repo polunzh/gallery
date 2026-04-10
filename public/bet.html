@@ -247,7 +247,7 @@
         }
 
         .flying-coin.animate {
-            animation: flyToTarget 0.8s ease-out forwards;
+            animation: flyToTarget 2.4s ease-out forwards;
         }
 
         @keyframes flyToTarget {
@@ -647,9 +647,9 @@
             flyingCoin.classList.add('animate');
         }
 
-        // 每1.5秒飞一个💰
-        setInterval(tossCoin, 1500);
-        setTimeout(tossCoin, 300);
+        // 每4.5秒飞一个💰
+        setInterval(tossCoin, 4500);
+        setTimeout(tossCoin, 500);
 
         const RING_CIRCUMFERENCE = 326.73;
         let lastUpdate = 0;
