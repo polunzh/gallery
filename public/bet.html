@@ -636,23 +636,35 @@
 
         // 控制💰一个一个飞向目标
         const flyingCoin = document.getElementById('flying-coin');
+        let isAnimating = false;
 
-        function tossCoin() {
-            if (!flyingCoin) return;
+        function startNextCoin() {
+            if (!flyingCoin || isAnimating) return;
+            isAnimating = true;
 
-            // 移除动画类重置
+            // 先确保移除动画类
             flyingCoin.classList.remove('animate');
 
-            // 强制重绘
-            void flyingCoin.offsetWidth;
-
-            // 添加动画类
-            flyingCoin.classList.add('animate');
+            // 使用 requestAnimationFrame 确保浏览器已经重绘
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    flyingCoin.classList.add('animate');
+                });
+            });
         }
 
-        // 每4.5秒飞一个💰
-        setInterval(tossCoin, 4500);
-        setTimeout(tossCoin, 500);
+        // 监听动画结束事件
+        if (flyingCoin) {
+            flyingCoin.addEventListener('animationend', () => {
+                flyingCoin.classList.remove('animate');
+                isAnimating = false;
+                // 等待 0.8秒 后开始下一次
+                setTimeout(startNextCoin, 800);
+            });
+        }
+
+        // 启动第一次
+        setTimeout(startNextCoin, 500);
 
         const RING_CIRCUMFERENCE = 326.73;
         let lastUpdate = 0;
