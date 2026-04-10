@@ -229,57 +229,60 @@
             color: var(--color-text-secondary);
         }
 
-        /* 抛物线飞行容器 */
-        .parabolic-flight {
-            flex: 1;
-            height: 80px;
-            margin: 0 10px;
+        /* 飞行动画 - 从仑飞到Xiao.诗 */
+        .flow-section {
             position: relative;
-            pointer-events: none;
         }
 
-        .flying-money {
+        .flying-coin {
             position: absolute;
-            left: 0;
-            bottom: 16px;
+            left: 30px;
+            bottom: 50px;
             font-size: 28px;
             opacity: 0;
             will-change: transform, opacity;
             filter: drop-shadow(0 4px 8px rgba(245, 158, 11, 0.5));
+            pointer-events: none;
+            z-index: 10;
         }
 
-        .flying-money.animate {
-            animation: coinToss 1s ease-out forwards;
+        .flying-coin.animate {
+            animation: flyToTarget 0.8s ease-out forwards;
         }
 
-        @keyframes coinToss {
+        @keyframes flyToTarget {
             0% {
-                transform: translateX(0) translateY(0) scale(0.6) rotate(-20deg);
+                transform: translateX(0) translateY(0) scale(0.6) rotate(-30deg);
                 opacity: 0;
             }
-            5% {
+            8% {
                 opacity: 1;
-                transform: translateX(5%) translateY(-30px) scale(1.15) rotate(-10deg);
+                transform: translateX(30px) translateY(-40px) scale(1.2) rotate(-15deg);
             }
-            30% {
-                transform: translateX(40%) translateY(-50px) scale(1.1) rotate(0deg);
+            40% {
+                transform: translateX(120px) translateY(-60px) scale(1.15) rotate(0deg);
             }
-            60% {
-                transform: translateX(75%) translateY(-30px) scale(1.05) rotate(10deg);
-                opacity: 1;
-            }
-            85% {
-                transform: translateX(95%) translateY(-5px) scale(0.95) rotate(15deg);
+            70% {
+                transform: translateX(200px) translateY(-30px) scale(1.1) rotate(10deg);
                 opacity: 1;
             }
-            95% {
-                transform: translateX(100%) translateY(0) scale(0.9) rotate(18deg);
-                opacity: 0.8;
+            90% {
+                transform: translateX(250px) translateY(-5px) scale(1) rotate(15deg);
+                opacity: 1;
             }
             100% {
-                transform: translateX(100%) translateY(0) scale(0.8) rotate(20deg);
+                transform: translateX(270px) translateY(0) scale(0.9) rotate(20deg);
                 opacity: 0;
             }
+        }
+
+        .coin-target {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
         }
 
         /* Cards - 主卡片更突出 */
@@ -531,14 +534,13 @@
                 <div class="person-name">仑</div>
             </div>
 
-            <div class="parabolic-flight">
-                <div class="flying-money" id="flying-coin">💰</div>
-            </div>
-
-            <div class="person">
+            <div class="person target-person">
                 <div class="avatar xiao">👱‍♀️</div>
                 <div class="person-name">Xiao.诗</div>
+                <div class="coin-target" id="coin-target"></div>
             </div>
+
+            <div class="flying-coin" id="flying-coin">💰</div>
         </section>
 
         <!-- Cards -->
@@ -626,30 +628,28 @@
             ring: document.getElementById('ring'),
             percent: document.getElementById('percent'),
             days: document.getElementById('days'),
-            rate: document.getElementById('rate'),
-            flyingCoin: document.getElementById('flying-coin')
+            rate: document.getElementById('rate')
         };
 
-        // 控制💰一个一个飞
+        // 控制💰一个一个飞向目标
+        const flyingCoin = document.getElementById('flying-coin');
+
         function tossCoin() {
-            const coin = dom.flyingCoin;
-            if (!coin) return;
+            if (!flyingCoin) return;
 
             // 移除动画类重置
-            coin.classList.remove('animate');
+            flyingCoin.classList.remove('animate');
 
             // 强制重绘
-            void coin.offsetWidth;
+            void flyingCoin.offsetWidth;
 
             // 添加动画类
-            coin.classList.add('animate');
-
-            // 动画结束后1秒再飞下一个
-            setTimeout(tossCoin, 2000);
+            flyingCoin.classList.add('animate');
         }
 
-        // 启动投掷动画
-        setTimeout(tossCoin, 500);
+        // 每1.5秒飞一个💰
+        setInterval(tossCoin, 1500);
+        setTimeout(tossCoin, 300);
 
         const RING_CIRCUMFERENCE = 326.73;
         let lastUpdate = 0;
